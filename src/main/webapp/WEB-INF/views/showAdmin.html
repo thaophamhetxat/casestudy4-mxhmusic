@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Bootstrap Example</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 550px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* On small screens, set height to 'auto' for the grid */
+        @media screen and (max-width: 767px) {
+            .row.content {
+                height: auto;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs">
+            <h2>HOME ADMIN</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#section1">Dashboard</a></li>
+                <li><a href="/blogMusic/create" class="btn btn-success">Create Blog</a></li>
+                <li><a href="/blogMusic/create-person" class="btn btn-success">Create Admin/Person</a></li>
+                <li><a th:href="@{/logout}">logout</a></li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Ngôn Ngữ
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="?lang=en">English</a>
+                        <a class="dropdown-item" href="?lang=vi">Việt Nam</a>
+                    </div>
+                </li>
+            </ul>
+            <br>
+        </div>
+        <br>
+
+        <div class="col-sm-9">
+            <div class="well">
+                <h4>Search</h4>
+                <form action="/blogMusic/findByName" method="get">
+                    <input type="text" class="form-control" placeholder="search" name="findName">
+                    <span><button type="submit" class="btn btn-success">Find</button></span>
+                </form>
+            </div>
+            <div class="row">
+                <!--                information-->
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Users</h4>
+                        <!--                        đếm vẫn chưa được-->
+                        <p th:each="person,loop: ${listPerson}" th:text="${loop.size}"></p>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Admin</h4>
+                        <!--                        đếm vẫn chưa được-->
+                        <p th:each="person,loop: ${listAdmin}" th:text="${loop.count}"></p>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Blogs</h4>
+                        <p>10 Million</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Bounce</h4>
+                        <p>30%</p>
+                    </div>
+                </div>
+            </div>
+            <!-- end infor-->
+
+
+
+            <!--  show crud-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="well">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Name Music</th>
+                                <th>Name Singer</th>
+                                <th>Name Musician</th>
+                                <th>File Image</th>
+                                <th>Genre</th>
+                                <th>Detail</th>
+                                <th>Play</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="blog,loop:${list}">
+                                <td th:text="${loop.count}"></td>
+                                <td th:text="${blog.tenBaiHat}"></td>
+                                <td th:text="${blog.tenCaSy}"></td>
+                                <td th:text="${blog.tenNhacSy}"></td>
+                                <td><img th:src="${blog.fileImage}" width="100px" height="100px"></td>
+                                <td th:text="${blog.theLoai.nameTheLoai}"></td>
+                                <td>
+                                    <!--                  button chi tiet -->
+                                    <button onclick="document.getElementById('ooo').style.display='block'"
+                                            class="w3-button w3-black">
+                                        Detail
+                                    </button>
+
+                                    <div id="ooo" class="w3-modal">
+                                        <div class="w3-modal-content w3-animate-zoom">
+                                            <div class="w3-container w3-black w3-display-container">
+                                    <span onclick="document.getElementById('ooo').style.display='none'"
+                                          class="w3-button w3-display-topright w3-large">x</span>
+                                                <h1>Detail</h1>
+                                            </div>
+                                            <form>
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>Like</td>
+                                                        <td th:text="${blog.likes}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>DisLike</td>
+                                                        <td th:text="${blog.dislike}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Views</td>
+                                                        <td th:text="${blog.views}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>File Music</td>
+                                                        <td th:text="${blog.fileMusic}"></td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!--                end button chi tiet-->
+                                </td>
+                                <td><a th:href="@{/blogMusic/playBlog/{id}(id = ${blog.id})}" class="btn btn-warning">Play</a>
+                                </td>
+                                <td><a th:href="@{/blogMusic/edit/{id}(id = ${blog.id})}" class="btn btn-warning">Edit</a></td>
+                                <td><a th:href="@{/blogMusic/delete/{id}(id = ${blog.id})}" class="btn btn-danger">Delete</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--    phân trang-->
+                        <div style="text-align: center">
+                            <span><a th:if="${list.hasPrevious()}" th:href="@{/blogMusic/showAdmin (page = ${list.number - 1})}"><<<<</a></span>
+                            <span th:text="${list.number + 1}"></span>/<span th:text="${list.totalPages}"></span>
+                            <span><a th:if="${list.hasNext()}"
+                                     th:href="@{/blogMusic/showAdmin (page = ${list.number + 1})}">>>>></a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--           end crud -->
+
+
+            <div class="row">
+
+
+                <div class="col-sm-8">
+                    <div class="well">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Avatar</th>
+                                <th>UserName</th>
+                                <th>PassWord</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <block th:each="person,loop: ${listPerson}">
+                                <tr>
+                                    <td th:text="${loop.count}"></td>
+                                    <td><img th:src="${person.avatar}" width="100px" height="100px"></td>
+                                    <td th:text="${person.userName}"></td>
+                                    <td th:text="${person.passWord}"></td>
+                                    <td th:text="${person.email}"></td>
+                                    <td th:text="${person.role.nameRole}"></td>
+                                    <td><a th:href="@{/blogMusic/deletePerson/{id}(id = ${person.id})}" class="btn btn-danger">Delete</a></td>
+                                </tr>
+                            </block>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

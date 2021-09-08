@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Table Create Music</h2>
+    <form action="/blogMusic/create" method="post" th:object="${listTheLoai}" enctype="multipart/form-data">
+            <table class="table">
+                <tr>
+                    <td>Name Music:</td>
+                    <td><input th:field="*{tenBaiHat}"></td>
+                </tr>
+                <tr>
+                    <td>Name Singer:</td>
+                    <td><input th:field="*{tenCaSy}"></td>
+                </tr>
+                <tr>
+                    <td>Name Musician:</td>
+                    <td><input th:field="*{tenNhacSy}"></td>
+                </tr>
+                <tr>
+                    <td>File Music:</td>
+                    <td>
+                        <input type="file" name="uppMusic">
+                    </td>
+                </tr>
+                <tr>
+                    <td>File Image:</td>
+                    <td>
+                        <input type="file" name="uppImg">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Genre:</td>
+                    <td><select th:field="*{theLoai}">
+                        <option th:each="tl: ${theLoaiList}" th:value="${tl.id}" th:text="${tl.nameTheLoai}"></option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Views:</td>
+                    <td><input name="views" value="0"></td>
+                </tr>
+        </table>
+        <button type="submit" class="btn btn-success">Create Music</button>
+
+    </form>
+</div>
+
+</body>
+</html>
