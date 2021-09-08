@@ -13,7 +13,7 @@
 
 <div class="container">
     <h2>Table Create Music</h2>
-    <form action="/blogMusic/create" method="post" th:object="${listTheLoai}" enctype="multipart/form-data">
+    <form action="/blogMusic/create" method="post" th:object="${listTheLoai}"  enctype="multipart/form-data">
             <table class="table">
                 <tr>
                     <td>Name Music:</td>
@@ -21,11 +21,17 @@
                 </tr>
                 <tr>
                     <td>Name Singer:</td>
-                    <td><input th:field="*{tenCaSy}"></td>
+                    <td><select  th:field="*{caSy}">
+                        <option th:each="casy: ${caSyList}" th:value="${casy.idCaSy}" th:text="${casy.nameCaSy}"></option>
+                    </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Name Musician:</td>
-                    <td><input th:field="*{tenNhacSy}"></td>
+                    <td><select  th:field="*{nhacSy}">
+                        <option th:each="nhacsy: ${nhacSyList}" th:value="${nhacsy.idNhacSy}" th:text="${nhacsy.nameNhacSy}"></option>
+                    </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>File Music:</td>
@@ -41,8 +47,8 @@
                 </tr>
                 <tr>
                     <td>Genre:</td>
-                    <td><select th:field="*{theLoai}">
-                        <option th:each="tl: ${theLoaiList}" th:value="${tl.id}" th:text="${tl.nameTheLoai}"></option>
+                    <td><select  th:field="*{theLoai}">
+                        <option th:each="tl: ${theLoaiList}" th:value="${tl.idTheLoai}" th:text="${tl.nameTheLoai}"></option>
                     </select>
                     </td>
                 </tr>

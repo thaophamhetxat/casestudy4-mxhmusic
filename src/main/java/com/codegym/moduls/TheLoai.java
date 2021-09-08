@@ -7,28 +7,25 @@ import java.util.List;
 public class TheLoai {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    int idTheLoai;
     String nameTheLoai;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<BlogMusic> blogMusics;
 
 
     public TheLoai() {
     }
 
-    public TheLoai(int id, String nameTheLoai, List<BlogMusic> blogMusics) {
-        this.id = id;
+    public TheLoai(int idTheLoai, String nameTheLoai) {
+        this.idTheLoai = idTheLoai;
         this.nameTheLoai = nameTheLoai;
-        this.blogMusics = blogMusics;
     }
 
-    public int getId() {
-        return id;
+    public int getIdTheLoai() {
+        return idTheLoai;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdTheLoai(int idTheLoai) {
+        this.idTheLoai = idTheLoai;
     }
 
     public String getNameTheLoai() {
@@ -39,11 +36,4 @@ public class TheLoai {
         this.nameTheLoai = nameTheLoai;
     }
 
-    public List<BlogMusic> getBlogMusics() {
-        return blogMusics;
-    }
-
-    public void setBlogMusics(List<BlogMusic> blogMusics) {
-        this.blogMusics = blogMusics;
-    }
 }

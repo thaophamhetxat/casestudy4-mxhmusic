@@ -37,8 +37,8 @@
     </div>
     <div id="header">
         <div class="container">
-            <div class="pull-left">
-                <form action="searchsanpham.htm" method="get">
+            <div class="pull-left" sec:authorize="isAuthenticated()">
+                <form action="searchsanpham.htm" method="get" >
                     Tìm kiếm: <input class="input search-input" type="text" name="tensp" placeholder="Nhập từ khóa">
                 </form>
             </div>
@@ -68,40 +68,14 @@
 
                     <li class="header-cart dropdown default-dropdown" sec:authorize="isAuthenticated()">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <div class="header-btns-icon">
-                               <a class="fa fa-shopping-cart" href="/blogMusic/shopping-cart"></a>
-                                <span class="qty">2</span>
+                            <div class="header-btns-icon" th:object="${favourite}">
+                                <a class="fa fa-shopping-cart" href="/blogMusic/shopping-cart"></a>
+                                <span class="qty" th:text="${favourite.countItemQuantity()}"></span>
                             </div>
-                            <strong class="text-uppercase" >Giỏ Hàng:</strong>
+                            <strong class="text-uppercase">Giỏ Hàng:</strong>
                             <br>
                             <span></span>
                         </a>
-
-                        <div class="custom-menu">
-                            <div id="shopping-cart">
-                                <div class="shopping-cart-list">
-
-<!--                                    <div class="product product-widget">-->
-<!--                                        <div class="product-thumb">-->
-<!--                                            <img src="https://sakurafashion.vn/upload/sanpham/large/5078-ao-hoodie-ghep-hai-manh-1.jpg"-->
-<!--                                                 alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="product-body">-->
-<!--                                            <h3 class="product-price">$1000000.0</h3>-->
-<!--                                            <h5>Số lượng: <span>1</span></h5>-->
-<!--                                            <h2 class="product-name"><a href="#">Hodie Anti</a></h2>-->
-<!--                                        </div>-->
-<!--                                        <button class="cancel-btn" onclick="location.href = 'removehome.htm?maSp=3'"><i-->
-<!--                                                class="fa fa-trash"></i></button>-->
-<!--                                    </div>-->
-
-                                </div>
-                                <div class="shopping-cart-btns">
-                                    <a onclick="location.href='checkout.htm'" class="primary-btn">Checkout <i
-                                            class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
                     </li>
 
                     <!-- /Cart -->
@@ -257,7 +231,8 @@
                     </div>
                     <div class="product-body">
                         <h3 class="product-price colortext">
-                            <a th:href="@{/blogMusic/playBlog/{id}(id = ${blog.id})}" th:text="${blog.tenBaiHat}"></a>
+                            <a th:href="@{/blogMusic/playBlog/{idBlog}(idBlog = ${blog.idBlog})}"
+                               th:text="${blog.tenBaiHat}"></a>
                         </h3>
                         <h3 class="product-price">
                             <del class="product-old-price" th:text="${blog.theLoai.nameTheLoai}"></del>
@@ -269,18 +244,19 @@
                             <a class="fa fa-star" href="yeuthich.htm?maSp=1&soSao=4"></a>
                             <a class="fa fa-star" href="yeuthich.htm?maSp=1&soSao=5"></a>
                         </div>
-                        <h2 class="product-name colorname" th:text="${blog.tenCaSy}"></h2>
+                        <h2 class="product-name colorname" th:text="${blog.caSy.nameCaSy}"></h2>
 
                         <div class="product-btns" sec:authorize="isAuthenticated()">
-                            <button onclick=" return confirm('YOU CART')"
-                                    th:href="@{/blogMusic/addCart/__${blog.id}__(action='list')}" class="primary-btn add-to-cart"><i
+                            <a onclick=" return confirm('YOU CART')"
+                                    th:href="@{/blogMusic/add/__${blog.idBlog}__(action='list')}"
+                                    class="primary-btn add-to-cart"><i
                                     class="fa fa-shopping-cart"></i> Mua bản quyền
-                            </button>
+                            </a>
                             <span>
-                                <a onclick=" return confirm('da them va muc yeu thich')"
-                                   th:href="@{/blogMusic/add/__${blog.id}__(action='list')}"
-                                   class="primary-btn add-to-cart"><i
-                                        class="fa fa-heart"></i></a>
+                                <button onclick=" return confirm('da them va muc yeu thich')"
+                                        th:href="@{/blogMusic/add/__${blog.idBlog}__(action='list')}"
+                                        class="primary-btn add-to-cart"><i
+                                        class="fa fa-heart"></i></button>
                             </span>
                         </div>
                     </div>
@@ -362,16 +338,20 @@
         <!-- row -->
         <div class="row">
             <!-- section-title -->
+
+
             <div class="col-md-12">
                 <div class="section-title">
-                    <h2 class="title">Deals Of The Day</h2>
+                    <h2 class="title">TOP Ca Sỹ HOT</h2>
                     <div class="pull-right">
                         <div class="product-slick-dots-1 custom-dots"></div>
                     </div>
                 </div>
             </div>
-            <!-- /section-title -->
 
+
+            <!-- /section-title -->
+            <!--            thông tin ca sỹ-->
             <!-- banner -->
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <div class="banner banner-2">
@@ -383,6 +363,7 @@
                 </div>
             </div>
             <!-- /banner -->
+
 
             <!-- Product Slick -->
             <div class="col-md-9 col-sm-6 col-xs-6">

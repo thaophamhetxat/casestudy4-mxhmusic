@@ -6,7 +6,7 @@ import java.sql.Date;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    int idPerson;
     String userName;
     String passWord;
     String email;
@@ -22,9 +22,9 @@ public class Person {
     }
 
 
-    public Person(int id, String userName, String passWord, String email,
+    public Person(int idPerson, String userName, String passWord, String email,
                   int phone, Date date, String sex, String avatar, Role role) {
-        this.id = id;
+        this.idPerson = idPerson;
         this.userName = userName;
         this.passWord = passWord;
         this.email = email;
@@ -43,12 +43,12 @@ public class Person {
         this.role = role;
     }
 
-    public int getId() {
-        return id;
+    public int getIdPerson() {
+        return idPerson;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPerson(int idPerson) {
+        this.idPerson = idPerson;
     }
 
     public String getUserName() {

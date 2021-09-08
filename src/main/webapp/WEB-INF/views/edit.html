@@ -16,7 +16,7 @@
     <form method="post" enctype="multipart/form-data" novalidate="novalidate" >
         <table class="table">
             <tr>
-                <td><input th:field="${list.id}" hidden></td>
+                <td><input th:field="${list.idBlog}" hidden></td>
             </tr>
             <tr>
                 <td>Name Music:</td>
@@ -24,11 +24,17 @@
             </tr>
             <tr>
                 <td>Name Singer:</td>
-                <td><input th:field="${list.tenCaSy}"></td>
+                <td><select th:field="${list.caSy}">
+                    <option th:each="cs: ${caSyList}" th:value="${cs.idCaSy}" th:text="${cs.nameCaSy}"></option>
+                </select>
+                </td>
             </tr>
             <tr>
                 <td>Name Musician:</td>
-                <td><input th:field="${list.tenNhacSy}"></td>
+                <td><select th:field="${list.nhacSy}">
+                    <option th:each="ns: ${nhacSyList}" th:value="${ns.idNhacSy}" th:text="${ns.nameNhacSy}"></option>
+                </select>
+                </td>
             </tr>
             <tr>
                 <td>File Music:</td>
@@ -47,7 +53,7 @@
             <tr>
                 <td>Genre:</td>
                 <td><select th:field="${list.theLoai}">
-                    <option th:each="tl: ${listTheLoai}" th:value="${tl.id}" th:text="${tl.nameTheLoai}"></option>
+                    <option th:each="tl: ${listTheLoai}" th:value="${tl.idTheLoai}" th:text="${tl.nameTheLoai}"></option>
                 </select>
                 </td>
             </tr>

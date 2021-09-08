@@ -122,15 +122,15 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     // chỉ cho Spring biết chỗ lấy tài liệu tĩnh.(js,css,img)
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/image/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\image/");
+                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/");
         registry.addResourceHandler("/music/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\music/");
+                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\music/");
         registry.addResourceHandler("/css/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\css/");
+                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\css/");
         registry.addResourceHandler("/js/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\js/");
+                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\js/");
         registry.addResourceHandler("/fonts/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\fonts/");
+                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\fonts/");
 
 
     }

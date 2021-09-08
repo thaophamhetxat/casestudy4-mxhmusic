@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/blogMusic/")
 public class FavouriteController {
     @ModelAttribute("favourite")
-    public Favourite setupCart() {
+    public Favourite setupFavourite() {
         return new Favourite();
     }
 
@@ -19,5 +19,13 @@ public class FavouriteController {
         modelAndView.addObject("favourite",favourite);
         return modelAndView;
     }
+
+    @GetMapping("/shopping-cart")
+    public ModelAndView showCart(@SessionAttribute("favourite") Favourite favourite) {
+        ModelAndView modelAndView = new ModelAndView("/cart");
+        modelAndView.addObject("favourite",favourite);
+        return modelAndView;
+    }
+
 
 }

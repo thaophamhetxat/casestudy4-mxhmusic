@@ -15,7 +15,7 @@
 
 <br>
 <br>
-<from th:action="@{/blogMusic/}" th:object="${cart}" method="post">
+<from th:action="@{/blogMusic/}" th:object="${favourite}" method="post">
     <div class="shopping-cart" >
 
         <div class="column-labels">
@@ -27,20 +27,20 @@
             <label class="product-line-price">Total</label>
         </div>
 
-        <div class="product" th:each="cart: ${cart.blogMusics}">
+        <div class="product" th:each="favourites: ${favourite.blogMusics}">
 
             <div class="product-image">
-                <img th:src="${cart.getKey().fileImage}">
+                <img th:src="${favourites.getKey().fileImage}">
             </div>
 
             <div class="product-details">
-                <div class="product-title" th:text="${cart.getKey().tenBaiHat}"></div>
+                <div class="product-title" th:text="${favourites.getKey().tenBaiHat}"></div>
 
             </div>
 
-            <div class="product-price" th:text="${cart.getKey().price}"></div>
+            <div class="product-price" th:text="${favourites.getKey().price}"></div>
 
-            <div class="product-quantity">
+            <div class="product-quantity" >
                 <input type="number" value="1" min="1">
             </div>
 
@@ -50,14 +50,14 @@
                 </button>
             </div>
 
-            <div class="product-line-price" th:text="${cart.countTotalPayment()}"></div>
+            <div class="product-line-price" th:text="${favourite.countTotalPayment()}"></div>
         </div>
 
 
         <div class="totals">
             <div class="totals-item">
                 <label>Subtotal</label>
-                <div class="totals-value" id="cart-subtotal" th:text="${cart.countTotalPayment()}"></div>
+                <div class="totals-value" id="cart-subtotal" th:text="${favourite.countTotalPayment()}"></div>
             </div>
             <div class="totals-item">
                 <label>Tax (5%)</label>
@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <button class="checkout">BUY</button>
+        <a class="checkout" href="/blogMusic/successCart/" >BUY</a>
 
     </div>
 </from>

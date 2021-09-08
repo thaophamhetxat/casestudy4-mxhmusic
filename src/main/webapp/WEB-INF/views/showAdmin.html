@@ -129,8 +129,8 @@
                             <tr th:each="blog,loop:${list}">
                                 <td th:text="${loop.count}"></td>
                                 <td th:text="${blog.tenBaiHat}"></td>
-                                <td th:text="${blog.tenCaSy}"></td>
-                                <td th:text="${blog.tenNhacSy}"></td>
+                                <td th:text="${blog.caSy.nameCaSy}"></td>
+                                <td th:text="${blog.nhacSy.nameNhacSy}"></td>
                                 <td><img th:src="${blog.fileImage}" width="100px" height="100px"></td>
                                 <td th:text="${blog.theLoai.nameTheLoai}"></td>
                                 <td>
@@ -171,10 +171,10 @@
                                     </div>
                                     <!--                end button chi tiet-->
                                 </td>
-                                <td><a th:href="@{/blogMusic/playBlog/{id}(id = ${blog.id})}" class="btn btn-warning">Play</a>
+                                <td><a th:href="@{/blogMusic/playBlog/{idBlog}(idBlog = ${blog.idBlog})}" class="btn btn-warning">Play</a>
                                 </td>
-                                <td><a th:href="@{/blogMusic/edit/{id}(id = ${blog.id})}" class="btn btn-warning">Edit</a></td>
-                                <td><a th:href="@{/blogMusic/delete/{id}(id = ${blog.id})}" class="btn btn-danger">Delete</a></td>
+                                <td><a th:href="@{/blogMusic/edit/{idBlog}(idBlog = ${blog.idBlog})}" class="btn btn-warning">Edit</a></td>
+                                <td><a th:href="@{/blogMusic/delete/{idBlog}(idBlog = ${blog.idBlog})}" class="btn btn-danger">Delete</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -216,7 +216,7 @@
                                     <td th:text="${person.passWord}"></td>
                                     <td th:text="${person.email}"></td>
                                     <td th:text="${person.role.nameRole}"></td>
-                                    <td><a th:href="@{/blogMusic/deletePerson/{id}(id = ${person.id})}" class="btn btn-danger">Delete</a></td>
+                                    <td><a th:href="@{/blogMusic/deletePerson/{idPerson}(idPerson = ${person.idPerson})}" class="btn btn-danger">Delete</a></td>
                                 </tr>
                             </block>
                         </table>

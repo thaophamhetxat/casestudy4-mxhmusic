@@ -195,20 +195,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="product" th:each="favourite: ${favourite.blogMusics}">
+                                <tr class="product" th:each="favourites: ${favourite.blogMusics}">
                                     <td class="product-image">
-                                        <img th:src="${favourite.getKey().fileImage}" height="75px" width="75px">
+                                        <img th:src="${favourites.getKey().fileImage}" height="75px" width="75px">
                                     </td>
 
                                     <td class="product-details">
-                                        <div class="product-title" th:text="${favourite.getKey().tenBaiHat}"></div>
+                                        <div class="product-title" th:text="${favourites.getKey().tenBaiHat}"></div>
                                         <p class="product-description"> NOTE: ghi note o day</p>
                                     </td>
 
-                                    <td class="product-price" th:text="${favourite.getKey().tenCaSy}"></td>
+                                    <td class="product-price" th:text="${favourites.getKey().caSy.nameCaSy}"></td>
 
                                     <td class="product-quantity">
-                                        <div class="product-price" th:text="${favourite.getKey().tenNhacSy}"></div>
+                                        <div class="product-price" th:text="${favourites.getKey().nhacSy.nameNhacSy}"></div>
                                     </td>
 
                                     <td class="product-removal">

@@ -30,13 +30,23 @@ public class BlogMusicController {
     @Autowired
     IRoleService iRoleService;
     @Autowired
-    IUaThichService iUaThichService;
+    INhacSyService iNhacSyService;
+    @Autowired
+    ICaSyService iCaSyService;
+    @Autowired
+    ICommentService iCommentService;
+
 
 //
 //    @ExceptionHandler(Exception.class)
 //    public ModelAndView handleError(Exception e) {
 //        ModelAndView modelAndView = new ModelAndView("error");
 //        return modelAndView;
+//    }
+
+//    @ModelAttribute("cart")
+//    public Cart setupCart() {
+//        return new Cart();
 //    }
 
     @ModelAttribute
@@ -49,6 +59,16 @@ public class BlogMusicController {
         return (ArrayList<Role>) iRoleService.findAll();
     }
 
+    @ModelAttribute
+    public ArrayList<CaSy> listCaSy() {
+        return (ArrayList<CaSy>) iCaSyService.findAll();
+    }
+
+    @ModelAttribute
+    public ArrayList<NhacSy> listNhacSy() {
+        return (ArrayList<NhacSy>) iNhacSyService.findAll();
+    }
+
     //login
     @GetMapping("/")
     public ModelAndView index(@RequestParam(defaultValue = "0") int page) {
@@ -58,6 +78,10 @@ public class BlogMusicController {
         modelAndView.addObject("listPop", iBlogMusicService.findAllByNamePop());
         modelAndView.addObject("listUs", iBlogMusicService.findAllByNameUs());
         modelAndView.addObject("list", iBlogMusicService.findAll(PageRequest.of(page, 12)));
+        // hiển thị danh mục ca sỹ
+        modelAndView.addObject("listCaSy", iCaSyService.findAll(PageRequest.of(page, 4)));
+        // hiển thị danh mục Nhạc Sỹ
+        modelAndView.addObject("listNhacSy", iNhacSyService.findAll(PageRequest.of(page, 4)));
         return modelAndView;
     }
 
@@ -71,6 +95,8 @@ public class BlogMusicController {
     public ModelAndView show(@RequestParam(defaultValue = "0") int page) {
         ModelAndView modelAndView = new ModelAndView("/showAdmin");
         modelAndView.addObject("listTheLoai", new BlogMusic());
+        modelAndView.addObject("listCaSY", new BlogMusic());
+        modelAndView.addObject("listNhacSy", new BlogMusic());
         modelAndView.addObject("listPerson", iPersonService.findAllPerson());
         modelAndView.addObject("listAdmin", iPersonService.findAllByNameAdmin());
         modelAndView.addObject("listUser", iPersonService.findAllByNamePerson());
@@ -95,6 +121,8 @@ public class BlogMusicController {
     public ModelAndView showCreate() {
         ModelAndView modelAndView = new ModelAndView("/create");
         modelAndView.addObject("listTheLoai", new BlogMusic());
+        modelAndView.addObject("listCaSy", new BlogMusic());
+        modelAndView.addObject("listNhacSy", new BlogMusic());
         return modelAndView;
     }
 
@@ -103,8 +131,8 @@ public class BlogMusicController {
         String nameImg = uppImg.getOriginalFilename();
         String nameMusic = uppMusic.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppImg.getBytes(), new File("D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\image/" + nameImg));
-            FileCopyUtils.copy(uppMusic.getBytes(), new File("D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\music/" + nameMusic));
+            FileCopyUtils.copy(uppImg.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
+            FileCopyUtils.copy(uppMusic.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\music/" + nameMusic));
             String urlImg = "/image/" + nameImg;
             String urlMusic = "/music/" + nameMusic;
             blogMusic.setFileImage(urlImg);
@@ -119,9 +147,9 @@ public class BlogMusicController {
 
 
     @GetMapping("/edit/{id}")
-    public ModelAndView showEdit(@PathVariable int id) {
+    public ModelAndView showEdit(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/edit", "listTheLoai", iTheLoaiService.findAll());
-        modelAndView.addObject("list", iBlogMusicService.findById(id));
+        modelAndView.addObject("list", iBlogMusicService.findById(idBlog));
         return modelAndView;
     }
 
@@ -130,8 +158,8 @@ public class BlogMusicController {
         String nameImg = uppImg.getOriginalFilename();
         String nameMusic = uppMusic.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppImg.getBytes(), new File("D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\image/" + nameImg));
-            FileCopyUtils.copy(uppMusic.getBytes(), new File("D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\music/" + nameMusic));
+            FileCopyUtils.copy(uppImg.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
+            FileCopyUtils.copy(uppMusic.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\music/" + nameMusic));
             String urlImg = "/image/" + nameImg;
             String urlMusic = "/music/" + nameMusic;
             blogMusic.setFileImage(urlImg);
@@ -151,59 +179,70 @@ public class BlogMusicController {
     }
 
 
-    @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable int id) {
-        iBlogMusicService.delete(iBlogMusicService.findById(id));
+    @GetMapping("/delete/{idBlog}")
+    public ModelAndView delete(@PathVariable int idBlog) {
+        iBlogMusicService.delete(iBlogMusicService.findById(idBlog));
         return new ModelAndView("redirect:/blogMusic/showAdmin");
     }
 
 
-    @GetMapping("/detail/{id}")
-    public ModelAndView detail(@PathVariable int id) {
+    @GetMapping("/detail/{idBlog}")
+    public ModelAndView detail(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("detail");
-        modelAndView.addObject("list", iBlogMusicService.findById(id));
+        modelAndView.addObject("list", iBlogMusicService.findById(idBlog));
         return modelAndView;
     }
 
 
     //    blog
-    @GetMapping("/playBlog/{id}")
-    public ModelAndView showBlog(@PathVariable int id) {
+    @GetMapping("/playBlog/{idBlog}")
+    public ModelAndView showBlog(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/blog");
-        iBlogMusicService.views(id);
+        iBlogMusicService.views(idBlog);
 //        modelAndView.addObject("listSortViews",iBlogMusicService.SortMaxViews());
         modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());
         modelAndView.addObject("listPop", iBlogMusicService.findAllByNamePop());
         modelAndView.addObject("listUs", iBlogMusicService.findAllByNameUs());
         modelAndView.addObject("listAll", iBlogMusicService.findAll());
-        modelAndView.addObject("list", iBlogMusicService.findById(id));
+        modelAndView.addObject("list", iBlogMusicService.findById(idBlog));
+        //show comment
+        modelAndView.addObject("listComment", iCommentService.findAll());
         return modelAndView;
     }
 
 
     //thêm vào list yêu thích
-    @GetMapping("add/{id}")
-    public String addToCart(@PathVariable int id, @ModelAttribute Favourite favourite, @ModelAttribute UaThich uaThich, @RequestParam("action") String action) {
-        Optional<BlogMusic> blogMusicOptional = iBlogMusicService.findByIdo(id);
+
+    @GetMapping("/add/{idBlog}")
+    public ModelAndView addToCart(@PathVariable int idBlog, @ModelAttribute Favourite favourite, @RequestParam("action") String action) {
+        Optional<BlogMusic> blogMusicOptional = iBlogMusicService.findByIdo(idBlog);
         if (!blogMusicOptional.isPresent()) {
-            return "/blogMusic/error";
+            return new ModelAndView("/blogMusic/error");
         }
         if (action.equals("show")) {
             favourite.addFavourite(blogMusicOptional.get());
-            return "redirect:/blogMusic/favourite-add";
+            return new ModelAndView("redirect:/blogMusic/favourite-add");
         }
         favourite.addFavourite(blogMusicOptional.get());
-        iUaThichService.save(uaThich);
-        return "redirect:/blogMusic/";
+//        iUaThichService.save(uaThich);
+        return new ModelAndView("redirect:/blogMusic/");
     }
 
 
     @ModelAttribute("favourite")
-    public Favourite setupCart() {
+    public Favourite setupFavourite() {
         return new Favourite();
     }
 
 
+
+    @GetMapping("/successCart/")
+    public ModelAndView showSuccessCart(){
+        ModelAndView modelAndView = new ModelAndView("/successCart");
+        return modelAndView;
+    }
+
+    //tạo 1 person mới
     @Autowired
     IPersonService iPersonService;
 
@@ -218,7 +257,7 @@ public class BlogMusicController {
     public ModelAndView createAdminOrPerson(@ModelAttribute("listPerson") Person person, @RequestParam MultipartFile uppAvatar) {
         String nameAvatar = uppAvatar.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppAvatar.getBytes(), new File("D:\\MD4-JPA\\BlogMusic\\src\\main\\webapp\\avatar/" + nameAvatar));
+            FileCopyUtils.copy(uppAvatar.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar" + nameAvatar));
             String urlImg = "/avatar/" + nameAvatar;
             person.setAvatar(urlImg);
         } catch (IOException e) {
@@ -236,32 +275,37 @@ public class BlogMusicController {
     }
 
 
-    //mua bản quyền
-
-    @ModelAttribute("cart")
-    public Cart setupCartBlog() {
-        return new Cart();
+    @PostMapping("/comments")
+    public ModelAndView editComment(@ModelAttribute Comment comment) {
+        iCommentService.save(comment);
+        return new ModelAndView("redirect:/blogMusic/blog");
     }
 
-    @GetMapping("addCart/{id}")
-    public String addToCart(@PathVariable int id, @ModelAttribute Cart cart, @RequestParam("action") String action) {
-        Optional<BlogMusic> BlogOptional = iBlogMusicService.findByIdo(id);
-        if (!BlogOptional.isPresent()) {
-            return "/blogMusic/error";
-        }
-        if (action.equals("show")) {
-            cart.addBlogMusic(BlogOptional.get());
-            return "redirect:/blogMusic/shopping-cart";
-        }
-        cart.addBlogMusic(BlogOptional.get());
-        return "redirect:/blogMusic/";
-    }
 
-    @GetMapping("/shopping-cart")
-    public ModelAndView showCart (@ModelAttribute("cart") Cart cart){
-        ModelAndView modelAndView = new ModelAndView("/cart");
-        modelAndView.addObject("cart",cart);
-        return modelAndView;
-    }
+    //mua
+//    @GetMapping("/addCart/{idBlog}")
+//    public String addToCart(@PathVariable int idBlog, @ModelAttribute Cart cart, @RequestParam("action") String action) {
+//        Optional<BlogMusic> blogMusicOptional = iBlogMusicService.findByIdo(idBlog);
+//        if (!blogMusicOptional.isPresent()) {
+//            return "/blogMusic/error";
+//        }
+//        if (action.equals("show")) {
+//            cart.addBlogMusic(blogMusicOptional.get());
+//            return "redirect:/blogMusic/shopping-cart";
+//        }
+//        cart.addBlogMusic(blogMusicOptional.get());
+//        return "redirect:/blogMusic";
+//    }
+//
+//    @ModelAttribute("cart")
+//    public Cart setupCart() {
+//        return new Cart();
+//    }
 
+//    @GetMapping("/shopping-cart")
+//    public ModelAndView showCart(@SessionAttribute("cart") Cart cart) {
+//        ModelAndView modelAndView = new ModelAndView("/cart");
+//        modelAndView.addObject("cart", cart);
+//        return modelAndView;
+//    }
 }
