@@ -15,5 +15,8 @@ public interface ICaSyService {
     Iterable<CaSy> findAll();
     Page<CaSy> findAll(Pageable pageable);
     Optional<CaSy> findById(int idCaSy);
+    CaSy save(CaSy caSy);
+    void delete(CaSy caSy);
+    void edit(CaSy caSy);
 
 }

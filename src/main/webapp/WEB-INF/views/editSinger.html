@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>EDIT SINGER</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Table Edit Singer</h2>
+    <form method="post" enctype="multipart/form-data" novalidate="novalidate" >
+        <table class="table">
+            <tr>
+                <td><input th:field="${listSinger.idCaSy}" hidden></td>
+            </tr>
+            <tr>
+                <td>Name Singer:</td>
+                <td><input th:field="${listSinger.nameCaSy}"></td>
+            </tr>
+            <tr>
+                <td>File Image:</td>
+                <td>
+                    <input type="file" name="uppPhotoCasy">
+                    <input th:field="${listSinger.singerPhoto}" hidden>
+                </td>
+            </tr>
+
+        </table>
+        <button type="submit" class="btn btn-success">Edit Singer</button>
+    </form>
+    <a href="/blogMusic/showAdmin" class="btn btn-success">Quay Lại</a>
+</div>
+
+</body>
+</html>

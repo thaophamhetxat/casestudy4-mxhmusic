@@ -28,4 +28,19 @@ public class CasyService implements ICaSyService {
     public Optional<CaSy> findById(int idCaSy) {
         return iCaSyRepo.findById(idCaSy);
     }
+
+    @Override
+    public CaSy save(CaSy caSy) {
+        return iCaSyRepo.save(caSy);
+    }
+
+    @Override
+    public void delete(CaSy caSy) {
+        iCaSyRepo.delete(caSy);
+    }
+
+    @Override
+    public void edit(CaSy caSy) {
+        iCaSyRepo.save(caSy);
+    }
 }

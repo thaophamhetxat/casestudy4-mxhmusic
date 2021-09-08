@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Bootstrap Example</title>
+    <title>ADMIN HOME</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -41,12 +41,14 @@
 <div class="container-fluid">
     <div class="row content">
         <div class="col-sm-3 sidenav hidden-xs">
-            <h2>HOME ADMIN</h2>
+            <h2 style="text-align: center">HOME ADMIN</h2>
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#section1">Dashboard</a></li>
+                <li class="active"><a href="#section1" style="text-align: center">Dashboard</a></li>
                 <li><a href="/blogMusic/create" class="btn btn-success">Create Blog</a></li>
                 <li><a href="/blogMusic/create-person" class="btn btn-success">Create Admin/Person</a></li>
-                <li><a th:href="@{/logout}">logout</a></li>
+                <li><a href="/blogMusic/create-casy" class="btn btn-success">Create Singer</a></li>
+                <li><a href="/blogMusic/create-nhacsy" class="btn btn-success">Create Musician</a></li>
+                <li><a th:href="@{/logout}" class="btn btn-success">logout</a></li>
                 <!-- Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -103,7 +105,6 @@
                 </div>
             </div>
             <!-- end infor-->
-
 
 
             <!--  show crud-->
@@ -171,16 +172,20 @@
                                     </div>
                                     <!--                end button chi tiet-->
                                 </td>
-                                <td><a th:href="@{/blogMusic/playBlog/{idBlog}(idBlog = ${blog.idBlog})}" class="btn btn-warning">Play</a>
+                                <td><a th:href="@{/blogMusic/playBlog/{idBlog}(idBlog = ${blog.idBlog})}"
+                                       class="btn btn-warning">Play</a>
                                 </td>
-                                <td><a th:href="@{/blogMusic/edit/{idBlog}(idBlog = ${blog.idBlog})}" class="btn btn-warning">Edit</a></td>
-                                <td><a th:href="@{/blogMusic/delete/{idBlog}(idBlog = ${blog.idBlog})}" class="btn btn-danger">Delete</a></td>
+                                <td><a th:href="@{/blogMusic/edit/{idBlog}(idBlog = ${blog.idBlog})}"
+                                       class="btn btn-warning">Edit</a></td>
+                                <td><a th:href="@{/blogMusic/delete/{idBlog}(idBlog = ${blog.idBlog})}"
+                                       class="btn btn-danger">Delete</a></td>
                             </tr>
                             </tbody>
                         </table>
                         <!--    phân trang-->
                         <div style="text-align: center">
-                            <span><a th:if="${list.hasPrevious()}" th:href="@{/blogMusic/showAdmin (page = ${list.number - 1})}"><<<<</a></span>
+                            <span><a th:if="${list.hasPrevious()}"
+                                     th:href="@{/blogMusic/showAdmin (page = ${list.number - 1})}"><<<<</a></span>
                             <span th:text="${list.number + 1}"></span>/<span th:text="${list.totalPages}"></span>
                             <span><a th:if="${list.hasNext()}"
                                      th:href="@{/blogMusic/showAdmin (page = ${list.number + 1})}">>>>></a></span>
@@ -192,8 +197,6 @@
 
 
             <div class="row">
-
-
                 <div class="col-sm-8">
                     <div class="well">
                         <table class="table">
@@ -216,7 +219,9 @@
                                     <td th:text="${person.passWord}"></td>
                                     <td th:text="${person.email}"></td>
                                     <td th:text="${person.role.nameRole}"></td>
-                                    <td><a th:href="@{/blogMusic/deletePerson/{idPerson}(idPerson = ${person.idPerson})}" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <a th:href="@{/blogMusic/deletePerson/{idPerson}(idPerson = ${person.idPerson})}"
+                                           class="btn btn-danger">Delete</a></td>
                                 </tr>
                             </block>
                         </table>
@@ -229,8 +234,62 @@
                         <p>Text</p>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="well">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Singer Photo</th>
+                                <th>Singer Name</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <block th:each="singer,loop: ${listSinger}">
+                                <tr>
+                                    <td th:text="${loop.count}"></td>
+                                    <td><img th:src="${singer.singerPhoto}" width="100px" height="100px"></td>
+                                    <td th:text="${singer.nameCaSy}"></td>
+                                    <td>
+                                        <a
+                                                th:href="@{/blogMusic/editSinger/{idCaSy}(idCaSy = ${singer.idCaSy})}">Edit</a>|
+                                        <a th:href="@{/blogMusic/deleteSinger/{idCaSy}(idCaSy = ${singer.idCaSy})}">Delete</a>
+                                    </td>
+                                </tr>
+                            </block>
+                        </table>
+                    </div>
+                </div>
 
 
+                <div class="col-sm-6">
+                    <div class="well">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Musician Photo</th>
+                                <th>Musician Name</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <block th:each="musician,loop: ${listMusician}">
+                                <tr>
+                                    <td th:text="${loop.count}"></td>
+                                    <td><img th:src="${musician.musicianPhoto}" width="100px" height="100px"></td>
+                                    <td th:text="${musician.nameNhacSy}"></td>
+                                    <td>
+                                        <a th:href="@{/blogMusic/EditMusician/{idNhacSy}(idNhacSy = ${musician.idNhacSy})}">Edit</a>|
+                                        <a th:href="@{/blogMusic/deleteMusician/{idNhacSy}(idNhacSy = ${musician.idNhacSy})}">Delete</a>
+                                    </td>
+                                </tr>
+                            </block>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

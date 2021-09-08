@@ -11,13 +11,23 @@ public class CaSy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idCaSy;
     String nameCaSy;
+    String singerPhoto;
 
-    public CaSy(int idCaSy, String nameCaSy) {
+    public CaSy(int idCaSy, String nameCaSy, String singerPhoto) {
         this.idCaSy = idCaSy;
         this.nameCaSy = nameCaSy;
+        this.singerPhoto = singerPhoto;
     }
 
     public CaSy() {
+    }
+
+    public String getSingerPhoto() {
+        return singerPhoto;
+    }
+
+    public void setSingerPhoto(String singerPhoto) {
+        this.singerPhoto = singerPhoto;
     }
 
     public int getIdCaSy() {
