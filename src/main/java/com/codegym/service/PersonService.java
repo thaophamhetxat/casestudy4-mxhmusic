@@ -30,8 +30,8 @@ public class PersonService implements  IPersonService, UserDetailsService {
     }
 
     @Override
-    public Optional<Person> findByIdPerson(int idPerson) {
-        return iPersonRepo.findById(idPerson);
+    public Person findByIdPerson(int idPerson) {
+        return iPersonRepo.findById(idPerson).get();
     }
 
     @Override

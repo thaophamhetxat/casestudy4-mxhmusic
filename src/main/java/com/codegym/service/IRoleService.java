@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface IRoleService {
     Iterable<Role> findAll();
 
-    Optional<Role> findById(int idRole);
+    Role findById(int idRole);
 }

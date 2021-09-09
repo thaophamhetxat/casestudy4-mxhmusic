@@ -17,7 +17,7 @@ public class RoleService implements IRoleService{
     }
 
     @Override
-    public Optional<Role> findById(int idRole) {
-        return iRoleRepo.findById(idRole);
+    public Role findById(int idRole) {
+        return iRoleRepo.findById(idRole).get();
     }
 }

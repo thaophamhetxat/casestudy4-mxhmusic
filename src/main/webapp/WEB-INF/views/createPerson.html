@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bootstrap Example</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Table Create admin/person</h2>
+  <form action="/blogMusic/createPerson" method="post" th:object="${person}" enctype="multipart/form-data">
+    <table class="table">
+      <tr>
+        <th >UserName</th>
+        <td><input th:field="*{userName}"></td>
+      </tr>
+      <tr>
+        <th >PassWord</th>
+        <td><input th:field="*{passWord}"></td>
+      </tr>
+      <tr>
+        <th >Email</th>
+        <td><input th:field="*{email}" ></td>
+      </tr>
+      <tr>
+        <th >Phone</th>
+        <td><input th:field="*{phone}"></td>
+      </tr>
+      <tr>
+        <th >Gender</th>
+        <td><input th:field="*{sex}" ></td>
+      </tr>
+      <tr>
+        <th >Date</th>
+        <td><input  type="date" th:firld="*{date}" ></td>
+      </tr>
+      <tr>
+        <td>Avatar:</td>
+        <td>
+          <input type="file" name="uppAvatar">
+        </td>
+      </tr>
+      <tr>
+        <th >Role</th>
+        <td><select th:field="*{role}">
+          <option th:each="role: ${roleList}" th:value="${role.id}" th:text="${role.nameRole}"></option>
+        </select>
+        </td>
+      </tr>
+    </table>
+    <button type="submit" class="btn btn-success">create</button>
+  </form>
+</div>
+
+</body>
+</html>

@@ -133,8 +133,8 @@ public class BlogMusicController {
         String nameImg = uppImg.getOriginalFilename();
         String nameMusic = uppMusic.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppImg.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
-            FileCopyUtils.copy(uppMusic.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\music/" + nameMusic));
+            FileCopyUtils.copy(uppImg.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
+            FileCopyUtils.copy(uppMusic.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\music/" + nameMusic));
             String urlImg = "/image/" + nameImg;
             String urlMusic = "/music/" + nameMusic;
             blogMusic.setFileImage(urlImg);
@@ -160,8 +160,8 @@ public class BlogMusicController {
         String nameImg = uppImg.getOriginalFilename();
         String nameMusic = uppMusic.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppImg.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
-            FileCopyUtils.copy(uppMusic.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\music/" + nameMusic));
+            FileCopyUtils.copy(uppImg.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
+            FileCopyUtils.copy(uppMusic.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\music/" + nameMusic));
             String urlImg = "/image/" + nameImg;
             String urlMusic = "/music/" + nameMusic;
             blogMusic.setFileImage(urlImg);
@@ -259,7 +259,8 @@ public class BlogMusicController {
     public ModelAndView createAdminOrPerson(@ModelAttribute("listPerson") Person person, @RequestParam MultipartFile uppAvatar) {
         String nameAvatar = uppAvatar.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppAvatar.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar" + nameAvatar));
+            FileCopyUtils.copy(uppAvatar.getBytes(),
+                    new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar" + nameAvatar));
             String urlImg = "/avatar/" + nameAvatar;
             person.setAvatar(urlImg);
         } catch (IOException e) {

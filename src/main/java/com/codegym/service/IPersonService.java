@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface IPersonService {
     Iterable<Person> findAllPerson();
 
-    Optional<Person> findByIdPerson(int idPerson);
+   Person findByIdPerson(int idPerson);
 
     Person savePerson(Person person);
 

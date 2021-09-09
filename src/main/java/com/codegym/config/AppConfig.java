@@ -99,7 +99,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/blogmusic");
         dataSource.setUsername("root");
-        dataSource.setPassword("hoanglanhl99");
+        dataSource.setPassword("123456789");
         return dataSource;
     }
 
@@ -122,15 +122,17 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     // chỉ cho Spring biết chỗ lấy tài liệu tĩnh.(js,css,img)
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/image/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/");
+                .addResourceLocations("file:C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\image/");
         registry.addResourceHandler("/music/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\music/");
+                .addResourceLocations("file:C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\music/");
         registry.addResourceHandler("/css/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\css/");
+                .addResourceLocations("file:C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\css/");
         registry.addResourceHandler("/js/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\js/");
+                .addResourceLocations("file:C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\js/");
         registry.addResourceHandler("/fonts/**/")
-                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\fonts/");
+                .addResourceLocations("file:C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\fonts/");
+        registry.addResourceHandler("/avatar/**/")
+                .addResourceLocations("file:C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar/");
 
 
     }
