@@ -282,7 +282,7 @@
                                     <td><img th:src="${musician.musicianPhoto}" width="100px" height="100px"></td>
                                     <td th:text="${musician.nameNhacSy}"></td>
                                     <td>
-                                        <a th:href="@{/blogMusic/EditMusician/{idNhacSy}(idNhacSy = ${musician.idNhacSy})}">Edit</a>|
+                                        <a th:href="@{/blogMusic/editMusician/{idNhacSy}(idNhacSy = ${musician.idNhacSy})}">Edit</a>|
                                         <a th:href="@{/blogMusic/deleteMusician/{idNhacSy}(idNhacSy = ${musician.idNhacSy})}">Delete</a>
                                     </td>
                                 </tr>
