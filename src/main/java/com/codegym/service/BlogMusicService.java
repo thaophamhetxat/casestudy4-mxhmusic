@@ -73,6 +73,20 @@ public class BlogMusicService implements IBlogMusicService {
 
 
     @Override
+    public void likes(int idBlog) {
+        Optional<BlogMusic> like = iBlogMusicRepo.findById(idBlog);
+        like.get().setLikes(like.get().getLikes() + 1);
+        iBlogMusicRepo.save(like.get());
+    }
+
+    @Override
+    public void dislikes(int idBlog) {
+        Optional<BlogMusic> dislike = iBlogMusicRepo.findById(idBlog);
+        dislike.get().setDislike(dislike.get().getDislike() + 1);
+        iBlogMusicRepo.save(dislike.get());
+    }
+
+    @Override
     public ArrayList<BlogMusic> findAllByNameRemix() {
         String queryStr = "select b from BlogMusic b  where b.theLoai.nameTheLoai like '%remix%'";
         TypedQuery<BlogMusic> query = entityManager.createQuery(queryStr, BlogMusic.class);

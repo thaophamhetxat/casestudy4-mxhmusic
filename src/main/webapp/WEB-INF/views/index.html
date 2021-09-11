@@ -13,7 +13,9 @@
     <link type="text/css" rel="stylesheet" href="../../css/slick.css">
     <link type="text/css" rel="stylesheet" href="../../css/slick-theme.css">
     <link type="text/css" rel="stylesheet" href="../../css/style.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
 </head>
 <script>
     if (document.getElementById("login") == true) {
@@ -30,16 +32,18 @@
     <div id="top-header">
         <div class="container">
             <div class="pull-left">
-                <span sec:authorize="isAuthenticated()">Xin chào,
+                <marquee>
+                                    <span sec:authorize="isAuthenticated()">Xin chào,
                     <strong sec:authentication="principal.username"></strong></span>
+                </marquee>
             </div>
         </div>
     </div>
     <div id="header">
         <div class="container">
-            <div class="pull-left" sec:authorize="isAuthenticated()">
-                <form action="searchsanpham.htm" method="get">
-                    Tìm kiếm: <input class="input search-input" type="text" name="tensp" placeholder="Nhập từ khóa">
+            <div class="pull-left" >
+                <form action="/blogMusic/search"  method="get">
+                    Tìm kiếm: <input class="input search-input" type="text" name="tenBaiHat" placeholder="Nhập từ khóa">
                 </form>
             </div>
             <div class="pull-right">
@@ -55,8 +59,6 @@
 
                         </div>
                         <a href="/blogMusic/login" class="text-uppercase" id="login"><h6>Đăng nhập</h6></a>
-                        <a th:href="@{/logout}" class="text-uppercase" id="logout"
-                           sec:authorize="isAuthenticated()"><h6>Thoát</h6></a>
                         <strong class="text-uppercase"></strong>
 
 
@@ -238,11 +240,9 @@
                             <del class="product-old-price" th:text="${blog.theLoai.nameTheLoai}"></del>
                         </h3>
                         <div class="product-rating">
-                            <a class="fa fa-star" href="yeuthich.htm?maSp=1&soSao=1"></a>
-                            <a class="fa fa-star" href="yeuthich.htm?maSp=1&soSao=2"></a>
-                            <a class="fa fa-star" href="yeuthich.htm?maSp=1&soSao=3"></a>
-                            <a class="fa fa-star" href="yeuthich.htm?maSp=1&soSao=4"></a>
-                            <a class="fa fa-star" href="yeuthich.htm?maSp=1&soSao=5"></a>
+                            <p class="fa fa-eye" th:text="*{blog.views}"></p>
+                            <span class="fa fa-thumbs-up" th:text="*{blog.likes}"></span>
+                            <span class="fa fa-thumbs-down" th:text="*{blog.dislike}"></span>
                         </div>
                         <h2 class="product-name colorname" th:text="${blog.caSy.nameCaSy}"></h2>
 
@@ -250,13 +250,19 @@
                             <a onclick=" return confirm('YOU CART')"
                                th:href="@{/blogMusic/add/__${blog.idBlog}__(action='list')}"
                                class="primary-btn add-to-cart"><i
-                                    class="fa fa-shopping-cart"></i> Mua bản quyền
+                                    class="fa fa-shopping-cart"></i> Buy C.right
                             </a>
                             <span>
-                                <button onclick=" return confirm('da them va muc yeu thich')"
-                                        th:href="@{/blogMusic/add/__${blog.idBlog}__(action='list')}"
-                                        class="primary-btn add-to-cart"><i
-                                        class="fa fa-heart"></i></button>
+                                <a th:href="@{/blogMusic/likeblog/{idBlog}(idBlog = ${blog.idBlog})}"
+                                   class="primary-btn add-to-cart">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </a>
+                            </span>
+                            <span>
+                                <a th:href="@{/blogMusic/unlikeblog/{idBlog}(idBlog = ${blog.idBlog})}"
+                                   class="primary-btn add-to-cart">
+                                    <i class="fa fa-thumbs-down"></i>
+                                </a>
                             </span>
                         </div>
                     </div>
@@ -269,13 +275,13 @@
             <div class="col-md-12 col-sm-12" style="text-align: right"></div>
         </div>
         <br>
-        <div style="text-align: center">
-            <span><a th:if="${list.hasPrevious()}"
-                     th:href="@{/blogMusic/ (page = ${list.number - 1})}"><<<<</a></span>
-            <span th:text="${list.number + 1}"></span>/<span th:text="${list.totalPages}"></span>
-            <span><a th:if="${list.hasNext()}"
-                     th:href="@{/blogMusic/ (page = ${list.number + 1})}">>>>></a></span>
-        </div>
+<!--        <div style="text-align: center">-->
+<!--            <span><a th:if="${list.hasPrevious()}"-->
+<!--                     th:href="@{/blogMusic/ (page = ${list.number - 1})}"><<<<</a></span>-->
+<!--            <span th:text="${list.number + 1}"></span>/<span th:text="${list.totalPages}"></span>-->
+<!--            <span><a th:if="${list.hasNext()}"-->
+<!--                     th:href="@{/blogMusic/ (page = ${list.number + 1})}">>>>></a></span>-->
+<!--        </div>-->
         <!-- /Product Single -->
     </div>
 </div>
@@ -353,7 +359,8 @@
                     <img th:src="${singer.singerPhoto}" width="262px" height="417px">
                     <div class="banner-caption">
                         <h2 class="white-color" th:text="${singer.nameCaSy}"></h2>
-                        <a class="primary-btn" th:href="@{/blogMusic/chiTietCaSy/{idCaSy}(idCaSy = ${singer.idCaSy})}">Chi Tiết</a>
+                        <a class="primary-btn" th:href="@{/blogMusic/chiTietCaSy/{idCaSy}(idCaSy = ${singer.idCaSy})}">Chi
+                            Tiết</a>
                     </div>
                 </div>
             </div>
@@ -402,7 +409,9 @@
                     <img th:src="${musician.musicianPhoto}" width="262px" height="417px">
                     <div class="banner-caption">
                         <h2 class="white-color" th:text="${musician.nameNhacSy}"></h2>
-                        <a class="primary-btn" th:href="@{/blogMusic/chiTietNhacSy/{idNhacSy}(idNhacSy = ${musician.idNhacSy})}">Chi Tiết</a>
+                        <a class="primary-btn"
+                           th:href="@{/blogMusic/chiTietNhacSy/{idNhacSy}(idNhacSy = ${musician.idNhacSy})}">Chi
+                            Tiết</a>
                     </div>
                 </div>
             </div>
@@ -465,7 +474,7 @@
                         <li><a href="#">My Wishlist</a></li>
                         <li><a href="#">Compare</a></li>
                         <li><a href="#">Checkout</a></li>
-                        <li><a href="#">Login</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -496,7 +505,7 @@
                         <div class="form-group">
                             <input class="input" placeholder="Enter Email Address">
                         </div>
-                        <a class="primary-btn" th:href="@{/logout}">Logout</a>
+
                     </form>
                 </div>
             </div>

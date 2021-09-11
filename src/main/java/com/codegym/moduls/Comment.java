@@ -8,20 +8,17 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idComment;
     String comments;
+    String nameUser;
 
-    @ManyToOne
-    private Person person;
-    @ManyToOne
-    private BlogMusic blogMusic;
+
 
     public Comment() {
     }
 
-    public Comment(int idComment, String comments, Person person, BlogMusic blogMusic) {
+    public Comment(int idComment, String comments, String nameUser) {
         this.idComment = idComment;
         this.comments = comments;
-        this.person = person;
-        this.blogMusic = blogMusic;
+        this.nameUser = nameUser;
     }
 
     public int getIdComment() {
@@ -40,19 +37,11 @@ public class Comment {
         this.comments = comments;
     }
 
-    public Person getPerson() {
-        return person;
+    public String getNameUser() {
+        return nameUser;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public BlogMusic getBlogMusic() {
-        return blogMusic;
-    }
-
-    public void setBlogMusic(BlogMusic blogMusic) {
-        this.blogMusic = blogMusic;
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
     }
 }

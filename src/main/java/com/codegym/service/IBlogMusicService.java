@@ -22,6 +22,8 @@ public interface IBlogMusicService {
     void edit(BlogMusic blogMusic);
 
     void views(int idBlog);
+    void likes(int idBlog);
+    void dislikes(int idBlog);
 
 //    ArrayList<BlogMusic> SortMaxViews();
 

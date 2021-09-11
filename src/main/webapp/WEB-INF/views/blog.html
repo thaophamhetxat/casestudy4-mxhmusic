@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="../../css/music.css">
     <link rel="stylesheet" href="../../css/play.css">
     <script src="../../js/play.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music player</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+          crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+          rel="stylesheet">
 
 
 </head>
@@ -208,88 +217,67 @@
             <!-- home slick -->
             <div id="home-slick">
                 <br>
-                <div class="col-md-8 col-sm-6">
+                <div class="col-md-12 col-sm-6">
                     <div class="banner banner-1">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Music player</title>
-                        <link rel="stylesheet"
-                              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-                              integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-                              crossorigin="anonymous"/>
-                        <link rel="preconnect" href="https://fonts.gstatic.com">
-                        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
-                              rel="stylesheet">
 
                         <div class="player">
                             <!-- Dashboard -->
                             <div class="dashboard">
                                 <!-- Header -->
-                                <header>
+                                <header th:object="${list}">
                                     <h4>Now playing:</h4>
-                                    <h2>String 57th & 9th</h2>
+                                    <h2 th:text="*{tenBaiHat}"></h2>
                                 </header>
-
-                                <!-- CD -->
-                                <div class="cd">
-                                    <div class="cd-thumb">
-                                    </div>
-                                </div>
-
                                 <!-- Control -->
                                 <div class="control">
-                                    <div class="btn btn-repeat">
-                                        <i class="fas fa-redo"></i>
+                                    <div class="btn btn-repeat" id="repeat">
+                                        <i onclick="checkLoop()" type="button" class="fas fa-redo"></i>
                                     </div>
                                     <div class="btn btn-prev">
                                         <i class="fas fa-step-backward"></i>
                                     </div>
                                     <div class="btn btn-toggle-play">
-                                        <i class="fas fa-pause icon-pause"></i>
-                                        <i class="fas fa-play icon-play"></i>
+                                        <i onclick="playAudio()" type="button"
+                                                class="fas fa-play icon-play"></i>
                                     </div>
-                                    <div class="btn btn-next">
+                                    <div class="btn btn-toggle-play">
+                                        <i onclick="pauseAudio()" type="button"
+                                                class="fas fa-pause icon-pause"></i>
+                                    </div>
+                                    <div class="btn btn-next" id="next">
                                         <i class="fas fa-step-forward"></i>
                                     </div>
-                                    <div class="btn btn-random">
-                                        <i class="fas fa-random"></i>
-                                    </div>
+
                                 </div>
 
                                 <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
 
-                                <audio id="audio" src=""></audio>
+                                <audio controls loop autoplay id="audio" th:object="${list}" hidden>
+                                    <source th:src="*{fileMusic}" type="audio/ogg">
+                                </audio>
+
+
                             </div>
 
-                            <!-- Playlist -->
-                            <div class="playlist">
-                            </div>
+
+                            <!--                        <form th:object="${list}" method="post" novalidate="novalidate" enctype="multipart/form-data">-->
+                            <!--                            <table class="table" id="list">-->
+                            <!--                                <div class="container-audio">-->
+                            <!--                                    <audio controls loop autoplay th:object="${list}">-->
+                            <!--                                        <source th:src="*{fileMusic}" type="audio/ogg">-->
+                            <!--                                    </audio>-->
+                            <!--                                </div>-->
+                            <!--                            </table>-->
+                            <!--                        </form>-->
                         </div>
-                        <form th:object="${list}" method="post" novalidate="novalidate" enctype="multipart/form-data">
-                            <table class="table" id="list">
-                                <div class="container-audio">
-                                    <audio controls loop autoplay>
-                                        <source th:src="*{fileMusic}" type="audio/ogg">
-                                    </audio>
-                                </div>
-                            </table>
-                        </form>
                     </div>
                 </div>
-                <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
-                    <a class="banner banner-1" href="getQuan.htm">
-                        <img src="/image/us.png" height="275px" alt="">
-                        <div class="banner-caption text-center">
-                            <h2 class="white-color">Us</h2>
-                        </div>
-                    </a>
-                </div>
+                <!-- /banner -->
             </div>
-            <!-- /banner -->
+            <!-- /home slick -->
         </div>
-        <!-- /home slick -->
+        <!-- /home wrap -->
     </div>
-    <!-- /home wrap -->
-</div>
 </div>
 <!-- /HOME -->
 
@@ -353,30 +341,25 @@
 
 
                     <!--            binh luan nguoi dung-->
-<!--                    <form action="/blogMusic/comments" method="post">-->
-<!--                        <div class="form-group">-->
-<!--                            <td><input name="comments" class="form-control" rows="3"></td>-->
-<!--                            <input th:field="${list.person.idPerson}" hidden>-->
-<!--                            <input th:field="${list.idBlog}" hidden>-->
-
-
-<!--                        </div>-->
-<!--                        <button type="submit" class="btn btn-success">Comment</button>-->
-<!--                    </form>-->
+                    <form action="/blogMusic/comments" method="post">
+                        <div class="form-group">
+                            <td><input name="nameUser"></td>
+                            <td><input name="comments" class="form-control" rows="3"></td>
+                        </div>
+                        <button type="submit" class="btn btn-success">Comment</button>
+                    </form>
 
                     <!--                    show bình luận-->
-<!--                    <div class="w3-row w3-margin-bottom" th:each="comment,loop:${listComment}">-->
-<!--                        <hr>-->
-<!--                        <div class="w3-col l2 m3">-->
-<!--                            <img th:src="${comment.person.avatar}" style="width:90px;">-->
-<!--                        </div>-->
-<!--                        <div class="w3-col l10 m9">-->
-<!--                            <h4 th:text="${comment.person.userName}"><span class="w3-opacity w3-medium">May 3, 2015, 6:32 PM</span>-->
-<!--                            </h4>-->
-<!--                            <p th:text="${comment.comments}"></p>-->
-<!--                            <p th:text="${loop.count}"></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="w3-row w3-margin-bottom" th:each="comment,loop:${listComment}">
+                        <hr>
+                        <div class="w3-col l2 m3">
+                            <img th:text="${comment.nameUser}" style="width:90px">
+                        </div>
+                        <div class="w3-col l10 m9">
+                            </h4>
+                            <p th:text="${comment.comments}"></p>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -517,10 +500,69 @@
 <script src="/js/slick.min.js"></script>
 
 </body>
-<script type="text/javascript">
-var storageKey = 'todoList';
-var todoList = [
+<script>
 
-];
+    // const cd = $(".cd");
+    // const audio = $("#audio");
+    // const playBtn = $(".btn-toggle-play");
+    // const _this = this;
+    // const cdWidth = cd.offsetWidth;
+    // const cdThumb = $(".cd-thumb");
+    // const progress = $("#progress");
+    let x = document.getElementById("audio");
+
+
+    function playAudio() {
+        x.play();
+    }
+
+    function pauseAudio() {
+        x.pause();
+    }
+
+
+    x.ontimeupdate = function () {
+        myFunction()
+    };
+
+    function myFunction() {
+        // Display the current position of the video in a p element with id="demo"
+        if (x.duration) {
+            document.getElementById("progress").value = Math.floor(
+                (x.currentTime / x.duration) * 100
+            );
+        }
+
+        document.getElementById("progress").onchange = function (e) {
+            x.currentTime = (x.duration / 100) * e.target.value;
+        };
+    }
+
+    function checkLoop() {
+        x.loop = false;
+        x.load();
+        alert("off repeat");
+    }
+
+
+    document.getElementById("next").onclick = function () {
+                if (this.isRandom) {
+                    this.playRandomSong();
+                } else {
+                    this.nextSong();
+                }
+                x.play();
+                _this.scrollToActiveSong();
+            };
+
+    // Xử lý next song khi audio end
+    x.onended = function () {
+        if (this.isRepeat) {
+            x.play();
+        } else {
+            document.getElementById("next").click();
+        }
+    };
+
 </script>
 </html>

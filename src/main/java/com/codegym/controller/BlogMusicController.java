@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -173,10 +172,11 @@ public class BlogMusicController {
         return new ModelAndView("redirect:/blogMusic/showAdmin");
     }
 
-    @GetMapping("/findByName")
-    public ModelAndView findByName(@RequestParam String findName) {
-        ModelAndView modelAndView = new ModelAndView("/showAdmin");
-        modelAndView.addObject("list", iBlogMusicService.findAllByName(findName));
+    //tìm kiếm
+    @GetMapping("/search")
+    public ModelAndView findByName(@RequestParam String tenBaiHat) {
+        ModelAndView modelAndView = new ModelAndView("/index");
+        modelAndView.addObject("list", iBlogMusicService.findAllByName(tenBaiHat));
         return modelAndView;
     }
 
@@ -308,9 +308,6 @@ public class BlogMusicController {
     }
 
 
-
-
-
     @PostMapping("/comments")
     public ModelAndView editComment(@ModelAttribute Comment comment) {
         iCommentService.save(comment);
@@ -433,7 +430,7 @@ public class BlogMusicController {
     @GetMapping("/chiTietNhacSy/{idNhacSy}")
     public ModelAndView hienThiChiTietNhacSy(@PathVariable int idNhacSy) {
         ModelAndView modelAndView = new ModelAndView("/chiTietNhacSy");
-        modelAndView.addObject("chiTietMusician", iCaSyService.findById(idNhacSy).get());
+        modelAndView.addObject("chiTietMusician", iNhacSyService.findById(idNhacSy).get());
         return modelAndView;
     }
 
@@ -460,30 +457,36 @@ public class BlogMusicController {
     }
 
 
-    //mua
-//    @GetMapping("/addCart/{idBlog}")
-//    public String addToCart(@PathVariable int idBlog, @ModelAttribute Cart cart, @RequestParam("action") String action) {
-//        Optional<BlogMusic> blogMusicOptional = iBlogMusicService.findByIdo(idBlog);
-//        if (!blogMusicOptional.isPresent()) {
-//            return "/blogMusic/error";
-//        }
-//        if (action.equals("show")) {
-//            cart.addBlogMusic(blogMusicOptional.get());
-//            return "redirect:/blogMusic/shopping-cart";
-//        }
-//        cart.addBlogMusic(blogMusicOptional.get());
-//        return "redirect:/blogMusic";
-//    }
-//
-//    @ModelAttribute("cart")
-//    public Cart setupCart() {
-//        return new Cart();
-//    }
+    //like
+    @GetMapping("/likeblog/{idBlog}")
+    public ModelAndView likeBlog(@RequestParam(defaultValue = "0") int page,@PathVariable int idBlog) {
+        ModelAndView modelAndView = new ModelAndView("/index");
+        iBlogMusicService.likes(idBlog);
+        modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());
+        modelAndView.addObject("listPop", iBlogMusicService.findAllByNamePop());
+        modelAndView.addObject("listUs", iBlogMusicService.findAllByNameUs());
+        modelAndView.addObject("list", iBlogMusicService.findAll(PageRequest.of(page, 12)));
+        // hiển thị danh mục ca sỹ
+        modelAndView.addObject("listCaSy", iCaSyService.findAll(PageRequest.of(page, 4)));
+        // hiển thị danh mục Nhạc Sỹ
+        modelAndView.addObject("listNhacSy", iNhacSyService.findAll(PageRequest.of(page, 4)));
+        return modelAndView;
+    }
 
-//    @GetMapping("/shopping-cart")
-//    public ModelAndView showCart(@SessionAttribute("cart") Cart cart) {
-//        ModelAndView modelAndView = new ModelAndView("/cart");
-//        modelAndView.addObject("cart", cart);
-//        return modelAndView;
-//    }
+    @GetMapping("/unlikeblog/{idBlog}")
+    public ModelAndView unlikeBlog(@RequestParam(defaultValue = "0") int page,@PathVariable int idBlog) {
+        ModelAndView modelAndView = new ModelAndView("/index");
+        iBlogMusicService.dislikes(idBlog);
+        modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());
+        modelAndView.addObject("listPop", iBlogMusicService.findAllByNamePop());
+        modelAndView.addObject("listUs", iBlogMusicService.findAllByNameUs());
+        modelAndView.addObject("list", iBlogMusicService.findAll(PageRequest.of(page, 12)));
+        // hiển thị danh mục ca sỹ
+        modelAndView.addObject("listCaSy", iCaSyService.findAll(PageRequest.of(page, 4)));
+        // hiển thị danh mục Nhạc Sỹ
+        modelAndView.addObject("listNhacSy", iNhacSyService.findAll(PageRequest.of(page, 4)));
+        return modelAndView;
+    }
+
+
 }

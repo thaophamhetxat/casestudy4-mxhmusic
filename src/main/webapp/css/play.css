@@ -24,17 +24,17 @@ html {
     margin: 0 auto;
 }
 
-.player .icon-pause {
-    display: none;
-}
+/*.player .icon-pause {*/
+/*    display: none;*/
+/*}*/
 
-.player.playing .icon-pause {
-    display: inline-block;
-}
+/*.player.playing .icon-pause {*/
+/*    display: inline-block;*/
+/*}*/
 
-.player.playing .icon-play {
-    display: none;
-}
+/*.player.playing .icon-play {*/
+/*    display: none;*/
+/*}*/
 
 .dashboard {
     padding: 16px 16px 14px;
@@ -87,7 +87,7 @@ header h2 {
 }
 
 .control .btn {
-    color: #666;
+    color: blue;
     padding: 18px;
     font-size: 18px;
 }
@@ -101,11 +101,11 @@ header h2 {
     height: 56px;
     border-radius: 50%;
     font-size: 24px;
-    color: #fff;
+    color: blue;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--primary-color);
+    /*background-color: var(--primary-color);*/
 }
 
 .progress {

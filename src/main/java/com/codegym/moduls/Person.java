@@ -6,7 +6,7 @@ import java.sql.Date;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int idPerson;
+    private int idPerson;
     String userName;
     String passWord;
     String email;
