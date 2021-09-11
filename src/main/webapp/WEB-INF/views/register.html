@@ -4,7 +4,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Register Page</title>
     <!--Made with love by Mutiullah Samim -->
@@ -38,7 +38,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="username" name="username">
+                        <input  class="form-control" type="text" name="userName">
 
                     </div>
 
@@ -46,7 +46,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input type="password" class="form-control" placeholder="password" name="password">
+                        <input class="form-control" type="text" name="passWord">
                     </div>
                     <div hidden>
                         <input type="text" class="form-control" placeholder="email" name="email" value="1">
@@ -69,15 +69,8 @@
                     <div class="row align-items-center remember">
                         <input type="checkbox">Bạn có đồng ý với điều khoản của chúng tôi
                     </div>
-                    <div class="form-group">
-                        <input type="submit" value="Register" class="btn float-right login_btn">
-                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </form>
-            </div>
-            <div class="card-footer">
-                <div class="d-flex justify-content-center links">
-                    Don't have an account?<a href="/blogMusic/register">Register</a>
-                </div>
             </div>
         </div>
     </div>

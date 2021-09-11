@@ -131,6 +131,8 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
                 .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\js/");
         registry.addResourceHandler("/fonts/**/")
                 .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\fonts/");
+        registry.addResourceHandler("/avatar/**/")
+                .addResourceLocations("file:D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar/");
 
 
     }

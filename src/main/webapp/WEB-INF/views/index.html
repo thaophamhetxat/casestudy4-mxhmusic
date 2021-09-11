@@ -30,8 +30,8 @@
     <div id="top-header">
         <div class="container">
             <div class="pull-left">
-                <span sec:authorize="isAuthenticated()">Xin chào, <strong
-                        sec:authentication="principal.username"></strong></span>
+                <span sec:authorize="isAuthenticated()">Xin chào,
+                    <strong sec:authentication="principal.username"></strong></span>
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@
                     <li class="header-account dropdown default-dropdown">
                         <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
                             <div class="header-btns-icon">
-                                <i class="fa fa-user-o"></i>
+                                <a class="fa fa-user-o" th:href="@{/blogMusic/editPerson/2}"></a>
                             </div>
 
                             <strong class="text-uppercase">Tài khoản</strong>
@@ -104,17 +104,17 @@
                 <ul class="category-list">
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=1'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicRemix" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Remix<i class="fa fa-angle-right"></i></a>
                     </li>
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=2'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicPop" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Pop<i class="fa fa-angle-right"></i></a>
                     </li>
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=3'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicUs" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Us<i class="fa fa-angle-right"></i></a>
                     </li>
 
@@ -166,7 +166,7 @@
         <div class="row">
             <!-- banner -->
             <div class="col-md-4 col-sm-6">
-                <a class="banner banner-1" href="getAo.htm">
+                <a class="banner banner-1" href="/blogMusic/showMusicRemix">
                     <img src="/image/dj.jpg"
                          height="275px" alt="">
                     <div class="banner-caption text-center">
@@ -178,7 +178,7 @@
 
             <!-- banner -->
             <div class="col-md-4 col-sm-6">
-                <a class="banner banner-1" href="getGiay.htm">
+                <a class="banner banner-1" href="/blogMusic/showMusicPop">
                     <img src="/image/pop.jpg" height="275px" alt="">
                     <div class="banner-caption text-center">
                         <h2 class="white-color">Pop</h2>
@@ -189,7 +189,7 @@
 
             <!-- banner -->
             <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
-                <a class="banner banner-1" href="getQuan.htm">
+                <a class="banner banner-1" href="/blogMusic/showMusicUs">
                     <img src="/image/us.png" height="275px" alt="">
                     <div class="banner-caption text-center">
                         <h2 class="white-color">Us</h2>
@@ -353,7 +353,7 @@
                     <img th:src="${singer.singerPhoto}" width="262px" height="417px">
                     <div class="banner-caption">
                         <h2 class="white-color" th:text="${singer.nameCaSy}"></h2>
-                        <button class="primary-btn">Chi Tiết</button>
+                        <a class="primary-btn" th:href="@{/blogMusic/chiTietCaSy/{idCaSy}(idCaSy = ${singer.idCaSy})}">Chi Tiết</a>
                     </div>
                 </div>
             </div>
@@ -402,7 +402,7 @@
                     <img th:src="${musician.musicianPhoto}" width="262px" height="417px">
                     <div class="banner-caption">
                         <h2 class="white-color" th:text="${musician.nameNhacSy}"></h2>
-                        <button class="primary-btn">Chi Tiết</button>
+                        <a class="primary-btn" th:href="@{/blogMusic/chiTietNhacSy/{idNhacSy}(idNhacSy = ${musician.idNhacSy})}">Chi Tiết</a>
                     </div>
                 </div>
             </div>
@@ -496,7 +496,7 @@
                         <div class="form-group">
                             <input class="input" placeholder="Enter Email Address">
                         </div>
-                        <button class="primary-btn">Join Newslatter</button>
+                        <a class="primary-btn" th:href="@{/logout}">Logout</a>
                     </form>
                 </div>
             </div>

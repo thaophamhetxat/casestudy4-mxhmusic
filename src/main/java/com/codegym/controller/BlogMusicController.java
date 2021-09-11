@@ -237,9 +237,8 @@ public class BlogMusicController {
     }
 
 
-
     @GetMapping("/successCart/")
-    public ModelAndView showSuccessCart(){
+    public ModelAndView showSuccessCart() {
         ModelAndView modelAndView = new ModelAndView("/successCart");
         return modelAndView;
     }
@@ -259,7 +258,7 @@ public class BlogMusicController {
     public ModelAndView createAdminOrPerson(@ModelAttribute("listPerson") Person person, @RequestParam MultipartFile uppAvatar) {
         String nameAvatar = uppAvatar.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppAvatar.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar" + nameAvatar));
+            FileCopyUtils.copy(uppAvatar.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar/" + nameAvatar));
             String urlImg = "/avatar/" + nameAvatar;
             person.setAvatar(urlImg);
         } catch (IOException e) {
@@ -270,11 +269,46 @@ public class BlogMusicController {
         return modelAndView;
     }
 
+    //delete person/admin
+    @GetMapping("/deletePerson/{idPerson}")
+    public ModelAndView deletePersonOfAdmin(@PathVariable int idPerson) {
+        iPersonService.removePerson(idPerson);
+        return new ModelAndView("redirect:/blogMusic/showAdmin");
+    }
+
+    //edit person/admin
+    @GetMapping("/editPerson/{idPerson}")
+    public ModelAndView showEditPersonOfAdmin(@PathVariable int idPerson) {
+        ModelAndView modelAndView = new ModelAndView("/editPeronOfAdmin");
+        modelAndView.addObject("listPA", iPersonService.findByIdPerson(idPerson).get());
+        return modelAndView;
+    }
+
+    @PostMapping("/editPerson/{idPerson}")
+    public ModelAndView editPersonOfAdmin(@ModelAttribute Person person, @RequestParam MultipartFile uppAvatar) {
+        String nameAvatar = uppAvatar.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(uppAvatar.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar/" + nameAvatar));
+            String urlImg = "/avatar/" + nameAvatar;
+            person.setAvatar(urlImg);
+        } catch (IOException e) {
+            System.err.println("chưa uppload file");
+        }
+        iPersonService.savePerson(person);
+        return new ModelAndView("redirect:/blogMusic/showAdmin");
+    }
+
+
     //register
     @GetMapping("/register")
     public ModelAndView register() {
-        return new ModelAndView("/register");
+        ModelAndView modelAndView = new ModelAndView("/register");
+        modelAndView.addObject("listPerson", new Person());
+        return modelAndView;
     }
+
+
+
 
 
     @PostMapping("/comments")
@@ -288,12 +322,12 @@ public class BlogMusicController {
     @GetMapping("/create-casy")
     public ModelAndView showCreateSinger() {
         ModelAndView modelAndView = new ModelAndView("/createCaSy");
-        modelAndView.addObject("listSinger",new CaSy());
+        modelAndView.addObject("listSinger", new CaSy());
         return modelAndView;
     }
 
     @PostMapping("/create-casy")
-    public ModelAndView createSinger(@RequestParam MultipartFile uppPhotoCasy,@ModelAttribute CaSy caSy) {
+    public ModelAndView createSinger(@RequestParam MultipartFile uppPhotoCasy, @ModelAttribute CaSy caSy) {
         String nameImg = uppPhotoCasy.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppPhotoCasy.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
@@ -302,7 +336,7 @@ public class BlogMusicController {
         } catch (IOException e) {
             System.err.println("chưa uppload file");
         }
-       iCaSyService.save(caSy);
+        iCaSyService.save(caSy);
         ModelAndView modelAndView = new ModelAndView("redirect:/blogMusic/showAdmin");
         return modelAndView;
     }
@@ -322,7 +356,7 @@ public class BlogMusicController {
     }
 
     @PostMapping("/editSinger/{idCaSy}")
-    public ModelAndView editSinger(@RequestParam MultipartFile uppPhotoCasy,@ModelAttribute CaSy caSy) {
+    public ModelAndView editSinger(@RequestParam MultipartFile uppPhotoCasy, @ModelAttribute CaSy caSy) {
         String nameImg = uppPhotoCasy.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppPhotoCasy.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
@@ -336,19 +370,16 @@ public class BlogMusicController {
     }
 
 
-
-
-
     //  Thêm - sửa - xóa nhạc sỹ
     @GetMapping("/create-nhacsy")
     public ModelAndView showCreateMusician() {
         ModelAndView modelAndView = new ModelAndView("/createNhacSy");
-        modelAndView.addObject("listMusician",new NhacSy());
+        modelAndView.addObject("listMusician", new NhacSy());
         return modelAndView;
     }
 
     @PostMapping("/create-nhacsy")
-    public ModelAndView createMusician(@RequestParam MultipartFile uppPhotoMusician,@ModelAttribute NhacSy nhacSy) {
+    public ModelAndView createMusician(@RequestParam MultipartFile uppPhotoMusician, @ModelAttribute NhacSy nhacSy) {
         String nameImg = uppPhotoMusician.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppPhotoMusician.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
@@ -376,7 +407,7 @@ public class BlogMusicController {
     }
 
     @PostMapping("/editMusician/{idNhacSy}")
-    public ModelAndView editMusician(@RequestParam MultipartFile uppPhotoMusician,@ModelAttribute NhacSy nhacSy) {
+    public ModelAndView editMusician(@RequestParam MultipartFile uppPhotoMusician, @ModelAttribute NhacSy nhacSy) {
         String nameImg = uppPhotoMusician.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppPhotoMusician.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
@@ -391,9 +422,42 @@ public class BlogMusicController {
     }
 
 
+    //chi tiêt ca sỹ - nhạc sỹ
+    @GetMapping("/chiTietCaSy/{idCaSy}")
+    public ModelAndView hienThiChiTietCaSy(@PathVariable int idCaSy) {
+        ModelAndView modelAndView = new ModelAndView("/chiTietCaSy");
+        modelAndView.addObject("chiTietSinger", iCaSyService.findById(idCaSy).get());
+        return modelAndView;
+    }
 
+    @GetMapping("/chiTietNhacSy/{idNhacSy}")
+    public ModelAndView hienThiChiTietNhacSy(@PathVariable int idNhacSy) {
+        ModelAndView modelAndView = new ModelAndView("/chiTietNhacSy");
+        modelAndView.addObject("chiTietMusician", iCaSyService.findById(idNhacSy).get());
+        return modelAndView;
+    }
 
+    //show tất cả nhạc của remix-pop-us
+    @GetMapping("/showMusicRemix")
+    public ModelAndView showRemix(@RequestParam(defaultValue = "0") int page) {
+        ModelAndView modelAndView = new ModelAndView("/showMusicRemix");
+        modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());
+        return modelAndView;
+    }
 
+    @GetMapping("/showMusicPop")
+    public ModelAndView showPop(@RequestParam(defaultValue = "0") int page) {
+        ModelAndView modelAndView = new ModelAndView("/showMusicPop");
+        modelAndView.addObject("listPop", iBlogMusicService.findAllByNamePop());
+        return modelAndView;
+    }
+
+    @GetMapping("/showMusicUs")
+    public ModelAndView showUs(@RequestParam(defaultValue = "0") int page) {
+        ModelAndView modelAndView = new ModelAndView("/showMusicUs");
+        modelAndView.addObject("listUs", iBlogMusicService.findAllByNameUs());
+        return modelAndView;
+    }
 
 
     //mua

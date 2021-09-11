@@ -197,7 +197,7 @@
 
 
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <div class="well">
                         <table class="table">
                             <thead>
@@ -220,8 +220,10 @@
                                     <td th:text="${person.email}"></td>
                                     <td th:text="${person.role.nameRole}"></td>
                                     <td>
+                                        <a th:href="@{/blogMusic/editPerson/{idPerson}(idPerson = ${person.idPerson})}"
+                                        >Edit</a>|
                                         <a th:href="@{/blogMusic/deletePerson/{idPerson}(idPerson = ${person.idPerson})}"
-                                           class="btn btn-danger">Delete</a></td>
+                                        >Delete</a></td>
                                 </tr>
                             </block>
                         </table>
@@ -229,11 +231,6 @@
                 </div>
 
 
-                <div class="col-sm-4">
-                    <div class="well">
-                        <p>Text</p>
-                    </div>
-                </div>
             </div>
 
             <div class="row">
