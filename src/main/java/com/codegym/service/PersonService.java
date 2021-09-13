@@ -9,14 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.codegym.repository.IPersonRepo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PersonService implements  IPersonService, UserDetailsService {
@@ -63,6 +61,16 @@ public class PersonService implements  IPersonService, UserDetailsService {
         String queryStr = "select p from Person p  where p.role.nameRole like '%user%'";
         TypedQuery<Person> query = entityManager.createQuery(queryStr, Person.class);
         return (ArrayList<Person>) query.getResultList();
+    }
+
+    @Override
+    public ArrayList<Person> findByUserNameContaining(String userName) {
+        return iPersonRepo.findByUserNameContaining(userName);
+    }
+
+    @Override
+    public void register(Person person) {
+        iPersonRepo.save(person);
     }
 
 

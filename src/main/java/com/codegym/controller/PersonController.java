@@ -24,6 +24,7 @@ public class PersonController {
     IPersonService iPersonService;
     @Autowired
     IRoleService iRoleService;
+
     @ModelAttribute
     public ArrayList<Role> listRole() {
         return (ArrayList<Role>) iRoleService.findAll();
@@ -37,7 +38,7 @@ public class PersonController {
     }
 
     @PostMapping("/createPerson")
-    public ModelAndView createPerson( @RequestParam MultipartFile uppAvatar,@ModelAttribute Person person){
+    public ModelAndView createPerson(@RequestParam MultipartFile uppAvatar, @ModelAttribute Person person) {
         String nameImg = uppAvatar.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppAvatar.getBytes(),
@@ -57,8 +58,9 @@ public class PersonController {
         modelAndView.addObject("listPerson", iPersonService.findByIdPerson(id));
         return modelAndView;
     }
+
     @PostMapping("/editPerson/{id}")
-    public ModelAndView editPerson( @RequestParam MultipartFile uppAvatar,@ModelAttribute Person person){
+    public ModelAndView editPerson(@RequestParam MultipartFile uppAvatar, @ModelAttribute Person person) {
         String nameImg = uppAvatar.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppAvatar.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudy\\BlogMusic2\\src\\main\\webapp\\avatar/" + nameImg));
@@ -77,5 +79,6 @@ public class PersonController {
         iPersonService.removePerson(id);
         return new ModelAndView("redirect:/blogMusic/showAdmin");
     }
+
 
 }

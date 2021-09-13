@@ -274,7 +274,24 @@ public class BlogMusicController {
     //register
     @GetMapping("/register")
     public ModelAndView register() {
-        return new ModelAndView("/register");
+        ModelAndView modelAndView = new ModelAndView("/register");
+        modelAndView.addObject("person", new Person());
+        return modelAndView;
+    }
+    @PostMapping("/register")
+    public ModelAndView addUser(@ModelAttribute Person person, @RequestParam MultipartFile uppAvatar){
+        String nameAvatar = uppAvatar.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(uppAvatar.getBytes(),
+                    new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar" + nameAvatar));
+            String urlImg = "/avatar/" + nameAvatar;
+            person.setAvatar(urlImg);
+        } catch (IOException e) {
+            System.err.println("chưa uppload file");
+        }
+        iPersonService.register(person);
+        return new ModelAndView("redirect:/blogMusic/showAdmin");
+
     }
 
 
@@ -297,7 +314,7 @@ public class BlogMusicController {
     public ModelAndView createSinger(@RequestParam MultipartFile uppPhotoCasy,@ModelAttribute CaSy caSy) {
         String nameImg = uppPhotoCasy.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppPhotoCasy.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
+            FileCopyUtils.copy(uppPhotoCasy.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
             String urlImg = "/image/" + nameImg;
             caSy.setSingerPhoto(urlImg);
         } catch (IOException e) {
@@ -326,7 +343,7 @@ public class BlogMusicController {
     public ModelAndView editSinger(@RequestParam MultipartFile uppPhotoCasy,@ModelAttribute CaSy caSy) {
         String nameImg = uppPhotoCasy.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppPhotoCasy.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
+            FileCopyUtils.copy(uppPhotoCasy.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
             String urlImg = "/image/" + nameImg;
             caSy.setSingerPhoto(urlImg);
         } catch (IOException e) {
@@ -352,7 +369,7 @@ public class BlogMusicController {
     public ModelAndView createMusician(@RequestParam MultipartFile uppPhotoMusician,@ModelAttribute NhacSy nhacSy) {
         String nameImg = uppPhotoMusician.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppPhotoMusician.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
+            FileCopyUtils.copy(uppPhotoMusician.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
             String urlImg = "/image/" + nameImg;
             nhacSy.setMusicianPhoto(urlImg);
         } catch (IOException e) {
@@ -380,7 +397,7 @@ public class BlogMusicController {
     public ModelAndView editMusician(@RequestParam MultipartFile uppPhotoMusician,@ModelAttribute NhacSy nhacSy) {
         String nameImg = uppPhotoMusician.getOriginalFilename();
         try {
-            FileCopyUtils.copy(uppPhotoMusician.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
+            FileCopyUtils.copy(uppPhotoMusician.getBytes(), new File("C:\\CodeGym\\Module4\\CaseStudyMussic\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
             String urlImg = "/image/" + nameImg;
             nhacSy.setMusicianPhoto(urlImg);
         } catch (IOException e) {
@@ -392,35 +409,4 @@ public class BlogMusicController {
     }
 
 
-
-
-
-
-
-    //mua
-//    @GetMapping("/addCart/{idBlog}")
-//    public String addToCart(@PathVariable int idBlog, @ModelAttribute Cart cart, @RequestParam("action") String action) {
-//        Optional<BlogMusic> blogMusicOptional = iBlogMusicService.findByIdo(idBlog);
-//        if (!blogMusicOptional.isPresent()) {
-//            return "/blogMusic/error";
-//        }
-//        if (action.equals("show")) {
-//            cart.addBlogMusic(blogMusicOptional.get());
-//            return "redirect:/blogMusic/shopping-cart";
-//        }
-//        cart.addBlogMusic(blogMusicOptional.get());
-//        return "redirect:/blogMusic";
-//    }
-//
-//    @ModelAttribute("cart")
-//    public Cart setupCart() {
-//        return new Cart();
-//    }
-
-//    @GetMapping("/shopping-cart")
-//    public ModelAndView showCart(@SessionAttribute("cart") Cart cart) {
-//        ModelAndView modelAndView = new ModelAndView("/cart");
-//        modelAndView.addObject("cart", cart);
-//        return modelAndView;
-//    }
 }

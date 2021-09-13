@@ -32,6 +32,7 @@
     }
 
 </script>
+
 <style>
     p, h1 {
         font-family: "Amatic SC", sans-serif
@@ -67,7 +68,8 @@
                                 <i class="fa fa-user-o"></i>
                             </div>
 
-                            <strong class="text-uppercase">Tài khoản</strong>
+                            <strong class="text-uppercase"  sec:authentication="principal.username" >Tài khoản</strong>
+
 
                         </div>
 

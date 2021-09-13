@@ -3,7 +3,6 @@ package com.codegym.service;
 import com.codegym.moduls.Person;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public interface IPersonService {
     Iterable<Person> findAllPerson();
@@ -17,4 +16,6 @@ public interface IPersonService {
 
     ArrayList<Person> findAllByNameAdmin();
     ArrayList<Person> findAllByNamePerson();
+   ArrayList<Person> findByUserNameContaining(String userName);
+   void  register(Person person);
 }

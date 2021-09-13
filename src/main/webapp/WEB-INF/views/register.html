@@ -1,86 +1,61 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register Page</title>
-    <!--Made with love by Mutiullah Samim -->
-
-    <!--Bootsrap 4 CDN-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <!--Fontawesome CDN-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/logincss.css">
-
-
+    <title>Register</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <div class="container">
-    <div class="d-flex justify-content-center h-100">
-        <div class="card">
-            <div class="card-header">
-                <h3>Register</h3>
-                <div class="d-flex justify-content-end social_icon">
-                    <span><i class="fab fa-facebook-square"></i></span>
-                    <span><i class="fab fa-google-plus-square"></i></span>
-                    <span><i class="fab fa-twitter-square"></i></span>
-                </div>
-            </div>
+    <h2>Table Register User</h2>
+    <form action="/blogMusic/register" method="post" th:object="${person}" enctype="multipart/form-data">
+        <table class="table">
+            <tr>
+                <th >UserName</th>
+                <td><input th:field="*{userName}"></td>
+            </tr>
+            <tr>
+                <th >PassWord</th>
+                <td><input th:field="*{passWord}"></td>
+            </tr>
+            <tr>
+                <th >Email</th>
+                <td><input th:field="*{email}" ></td>
+            </tr>
+            <tr>
+                <th >Phone</th>
+                <td><input th:field="*{phone}"></td>
+            </tr>
+            <tr>
+                <th >Sex</th>
+                <td><input th:field="*{sex}" ></td>
+            </tr>
+            <tr>
+                <th >Date</th>
+                <td><input  type="date" th:field="*{date}" ></td>
+            </tr>
+            <tr>
+                <td>Avatar:</td>
+                <td>
+                    <input type="file" name="uppAvatar">
+                </td>
+            </tr>
+            <tr hidden>
+                <th value="ROLE_USER" >Role</th>
 
-            <div class="card-body">
-                <form action="/blogMusic/create-person" method="post" enctype="multipart/form-data">
-
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="username" name="username">
-
-                    </div>
-
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
-                        <input type="password" class="form-control" placeholder="password" name="password">
-                    </div>
-                    <div hidden>
-                        <input type="text" class="form-control" placeholder="email" name="email" value="1">
-                    </div>
-                    <div hidden>
-                        <input type="date" class="form-control" placeholder="date" name="date" value="1">
-                    </div>
-                    <div hidden>
-                        <input type="number" class="form-control" placeholder="phone" name="phone" value="1">
-                    </div>
-                    <div hidden>
-                        <input type="text" class="form-control" placeholder="sex" name="sex" value="1">
-                    </div>
-                    <div hidden>
-                        <input type="text" class="form-control" placeholder="role" name="role" value="ROLE_USER" >
-                    </div>
-                    <div hidden>
-                        <input type="file" name="uppAvatar" value="/avatar/user.png" >
-                    </div>
-                    <div class="row align-items-center remember">
-                        <input type="checkbox">Bạn có đồng ý với điều khoản của chúng tôi
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Register" class="btn float-right login_btn">
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="d-flex justify-content-center links">
-                    Don't have an account?<a href="/blogMusic/register">Register</a>
-                </div>
-            </div>
+            </tr>
+        </table>
+        <div class="row align-items-center remember">
+            <input type="checkbox">Bạn có đồng ý với điều khoản của chúng tôi
         </div>
-    </div>
+        <button type="submit" class="btn btn-success" com>Submit</button>
+    </form>
 </div>
+
 </body>
 </html>

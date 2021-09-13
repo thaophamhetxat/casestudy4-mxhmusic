@@ -208,7 +208,9 @@
                                 <th>PassWord</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Edit</th>
                                 <th>Delete</th>
+                                <th>Detail</th>
                             </tr>
                             </thead>
                             <block th:each="person,loop: ${listPerson}">
@@ -225,6 +227,7 @@
                                     <td>
                                         <a th:href="@{/blogMusic/deletePerson/{idPerson}(idPerson = ${person.idPerson})}"
                                            class="btn btn-danger">Delete</a></td>
+
                                 </tr>
                             </block>
                         </table>
