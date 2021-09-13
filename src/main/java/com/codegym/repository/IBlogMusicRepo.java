@@ -12,4 +12,6 @@ public interface IBlogMusicRepo extends PagingAndSortingRepository<BlogMusic, In
     @Query(value = "select c from BlogMusic c where c.tenBaiHat like concat('%',:tenBaiHat,'%')")
     ArrayList<BlogMusic> findAllByName(@Param("tenBaiHat") String tenBaiHat);
 
+
+
 }

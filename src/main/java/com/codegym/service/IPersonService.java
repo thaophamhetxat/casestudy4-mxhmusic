@@ -1,5 +1,6 @@
 package com.codegym.service;
 
+import com.codegym.moduls.BlogMusic;
 import com.codegym.moduls.Person;
 
 import java.util.ArrayList;
@@ -17,4 +18,7 @@ public interface IPersonService {
 
     ArrayList<Person> findAllByNameAdmin();
     ArrayList<Person> findAllByNamePerson();
+    ArrayList<Person> findAllByUserName(String userName);
+
+    void  register(Person person);
 }

@@ -65,11 +65,6 @@
     </div>
     <div id="header">
         <div class="container">
-            <div class="pull-left">
-                <form action="searchsanpham.htm" method="get">
-                    Tìm kiếm: <input class="input search-input" type="text" name="tensp" placeholder="Nhập từ khóa">
-                </form>
-            </div>
             <div class="pull-right">
                 <ul class="header-btns">
                     <!-- Account -->
@@ -91,69 +86,6 @@
 
 
                     </li>
-                    <!-- /Account -->
-
-                    <!-- Cart -->
-
-
-                    <li class="header-cart dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <div class="header-btns-icon">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="qty">2</span>
-                            </div>
-                            <strong class="text-uppercase">Giỏ Hàng:</strong>
-                            <br>
-                            <span></span>
-                        </a>
-
-                        <div class="custom-menu">
-                            <div id="shopping-cart">
-                                <div class="shopping-cart-list">
-
-                                    <div class="product product-widget">
-                                        <div class="product-thumb">
-                                            <img src="http://media3.scdn.vn/img2/2018/1_17/SGuIt9_simg_d0daf0_800x1200_max.jpg"
-                                                 alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">$1000000.0</h3>
-                                            <h5>Số lượng: <span>1</span></h5>
-                                            <h2 class="product-name"><a href="#">Hodie Curen</a></h2>
-                                        </div>
-                                        <button class="cancel-btn" onclick="location.href = 'removehome.htm?maSp=2'"><i
-                                                class="fa fa-trash"></i></button>
-                                    </div>
-
-                                    <div class="product product-widget">
-                                        <div class="product-thumb">
-                                            <img src="https://sakurafashion.vn/upload/sanpham/large/5078-ao-hoodie-ghep-hai-manh-1.jpg"
-                                                 alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">$1000000.0</h3>
-                                            <h5>Số lượng: <span>1</span></h5>
-                                            <h2 class="product-name"><a href="#">Hodie Anti</a></h2>
-                                        </div>
-                                        <button class="cancel-btn" onclick="location.href = 'removehome.htm?maSp=3'"><i
-                                                class="fa fa-trash"></i></button>
-                                    </div>
-
-                                </div>
-                                <div class="shopping-cart-btns">
-                                    <a onclick="location.href='checkout.htm'" class="primary-btn">Checkout <i
-                                            class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- /Cart -->
-
-                    <!-- Mobile nav toggle-->
-                    <li class="nav-toggle">
-                        <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
-                    </li>
                     <!-- / Mobile nav toggle -->
                 </ul>
             </div>
@@ -174,17 +106,17 @@
                 <ul class="category-list">
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=1'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicRemix" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Remix<i class="fa fa-angle-right"></i></a>
                     </li>
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=2'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicPop" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Pop<i class="fa fa-angle-right"></i></a>
                     </li>
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=3'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicUs" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Us<i class="fa fa-angle-right"></i></a>
                     </li>
 
@@ -197,8 +129,6 @@
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
                     <li><a href="/blogMusic/">Trang chủ</a></li>
-                    <li><a href="checkout.htm">Giỏ hàng</a></li>
-                    <li><a href="">Thông tin Blog</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/blogMusic/favourite-add">Bài hát ưa thích</a></li>
                 </ul>
             </div>
@@ -238,11 +168,11 @@
                                     </div>
                                     <div class="btn btn-toggle-play">
                                         <i onclick="playAudio()" type="button"
-                                                class="fas fa-play icon-play"></i>
+                                           class="fas fa-play icon-play"></i>
                                     </div>
                                     <div class="btn btn-toggle-play">
                                         <i onclick="pauseAudio()" type="button"
-                                                class="fas fa-pause icon-pause"></i>
+                                           class="fas fa-pause icon-pause"></i>
                                     </div>
                                     <div class="btn btn-next" id="next">
                                         <i class="fas fa-step-forward"></i>
@@ -255,29 +185,18 @@
                                 <audio controls loop autoplay id="audio" th:object="${list}" hidden>
                                     <source th:src="*{fileMusic}" type="audio/ogg">
                                 </audio>
-
-
                             </div>
-
-
-                            <!--                        <form th:object="${list}" method="post" novalidate="novalidate" enctype="multipart/form-data">-->
-                            <!--                            <table class="table" id="list">-->
-                            <!--                                <div class="container-audio">-->
-                            <!--                                    <audio controls loop autoplay th:object="${list}">-->
-                            <!--                                        <source th:src="*{fileMusic}" type="audio/ogg">-->
-                            <!--                                    </audio>-->
-                            <!--                                </div>-->
-                            <!--                            </table>-->
-                            <!--                        </form>-->
                         </div>
+
                     </div>
                 </div>
-                <!-- /banner -->
             </div>
-            <!-- /home slick -->
+            <!-- /banner -->
         </div>
-        <!-- /home wrap -->
+        <!-- /home slick -->
     </div>
+    <!-- /home wrap -->
+</div>
 </div>
 <!-- /HOME -->
 
@@ -321,47 +240,38 @@
                     </tr>
                 </table>
                 <br>
-                <div class="w3-justify" th:object="${list}">
-                    <table>
-                        <tr>
-                            <th>
-                                <p class="w3-left">
-                                    <button class="w3-button w3-white w3-border" onclick="likeFunction(this)"><b>
-                                        <i class="fa fa-thumbs-up"></i>Like</b></button>
-                                </p>
-                            </th>
-                            <th>
-                                <p class="w3-left">
-                                    <button class="w3-button w3-white w3-border" onclick="DislikeFunction(this)"><b>
-                                        <i class="fa fa-thumbs-down"></i>DisLike</b></button>
-                                </p>
-                            </th>
-                        </tr>
-                    </table>
-
-
+                <div class="w3-justify" >
                     <!--            binh luan nguoi dung-->
                     <form action="/blogMusic/comments" method="post">
-                        <div class="form-group">
-                            <td><input name="nameUser"></td>
-                            <td><input name="comments" class="form-control" rows="3"></td>
+                        <div class="form-group" >
+                            <td><input  name="comments" class="form-control" rows="3" placeholder="nhập bình luận"></td>
                         </div>
                         <button type="submit" class="btn btn-success">Comment</button>
                     </form>
-
-                    <!--                    show bình luận-->
-                    <div class="w3-row w3-margin-bottom" th:each="comment,loop:${listComment}">
-                        <hr>
-                        <div class="w3-col l2 m3">
-                            <img th:text="${comment.nameUser}" style="width:90px">
-                        </div>
-                        <div class="w3-col l10 m9">
-                            </h4>
-                            <p th:text="${comment.comments}"></p>
-                        </div>
+                </div>
+                <!--                    show bình luận-->
+                <h3 style="text-align: center">SHOW ALL COMMENT</h3>
+                <div class="w3-row w3-margin-bottom" th:each="comment,loop:${listComments}">
+                    <hr>
+                    <div class="w3-col l2 m3">
+                        <table>
+                            <tr>
+                                <th>
+                                    <img src="/image/showcool.png" style="width:50px">
+                                </th>
+                                <td>
+                                    <p th:text="${comment.comments}" style="font-size: 20px;font-family: 'Amatic SC', sans-serif"></p>
+                                </td>
+                            </tr>
+<!--                            <div style="text-align: center">-->
+<!--                            <span><a th:if="${list.hasPrevious()}"-->
+<!--                                     th:href="@{/blogMusic/blog (page = ${list.number - 1})}"><<<<</a></span>-->
+<!--                                <span th:text="${list.number + 1}"></span>/<span th:text="${list.totalPages}"></span>-->
+<!--                                <span><a th:if="${list.hasNext()}"-->
+<!--                                         th:href="@{/blogMusic/blog (page = ${list.number + 1})}">>>>></a></span>-->
+<!--                            </div>-->
+                        </table>
                     </div>
-
-
                 </div>
             </div>
 
@@ -372,7 +282,7 @@
                     <tr>
                         <th>
                             <a th:href="@{/blogMusic/playBlog/{idBlog}(idBlog = ${remix.idBlog})}">
-                                <img th:src="${remix.fileImage}" width="75px" height="75px" class="w3-padding-16">
+                                <img th:src="${remix.fileImage}" width="100px" height="100px" class="w3-padding-16">
                             </a>
                         </th>
                         <th>
@@ -501,14 +411,6 @@
 
 </body>
 <script>
-
-    // const cd = $(".cd");
-    // const audio = $("#audio");
-    // const playBtn = $(".btn-toggle-play");
-    // const _this = this;
-    // const cdWidth = cd.offsetWidth;
-    // const cdThumb = $(".cd-thumb");
-    // const progress = $("#progress");
     let x = document.getElementById("audio");
 
 
@@ -526,7 +428,6 @@
     };
 
     function myFunction() {
-        // Display the current position of the video in a p element with id="demo"
         if (x.duration) {
             document.getElementById("progress").value = Math.floor(
                 (x.currentTime / x.duration) * 100
@@ -546,14 +447,14 @@
 
 
     document.getElementById("next").onclick = function () {
-                if (this.isRandom) {
-                    this.playRandomSong();
-                } else {
-                    this.nextSong();
-                }
-                x.play();
-                _this.scrollToActiveSong();
-            };
+        if (this.isRandom) {
+            this.playRandomSong();
+        } else {
+            this.nextSong();
+        }
+        x.play();
+        _this.scrollToActiveSong();
+    };
 
     // Xử lý next song khi audio end
     x.onended = function () {
@@ -564,5 +465,23 @@
         }
     };
 
+
+    // document.getElementById("next").onclick = function () {
+    //     this.nextSong();
+    //     x.play();
+    //
+    //
+    // };
+    //
+    // playlist.onclick()= function (e){
+    //
+    // }
+    // nextSong: function() {
+    //     this.currentIndex++;
+    //     if (this.currentIndex >= this.songs.length) {
+    //         this.currentIndex = 0;
+    //     }
+    //     this.loadCurrentSong();
+    // }
 </script>
 </html>

@@ -65,6 +65,16 @@ public class PersonService implements  IPersonService, UserDetailsService {
         return (ArrayList<Person>) query.getResultList();
     }
 
+    @Override
+    public ArrayList<Person> findAllByUserName(String userName) {
+        return iPersonRepo.findAllByUserName(userName);
+    }
+
+    @Override
+    public void register(Person person) {
+        iPersonRepo.save(person);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

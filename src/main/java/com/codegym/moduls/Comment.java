@@ -8,17 +8,13 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idComment;
     String comments;
-    String nameUser;
-
-
 
     public Comment() {
     }
 
-    public Comment(int idComment, String comments, String nameUser) {
+    public Comment(int idComment, String comments) {
         this.idComment = idComment;
         this.comments = comments;
-        this.nameUser = nameUser;
     }
 
     public int getIdComment() {
@@ -35,13 +31,5 @@ public class Comment {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-    public String getNameUser() {
-        return nameUser;
-    }
-
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
     }
 }

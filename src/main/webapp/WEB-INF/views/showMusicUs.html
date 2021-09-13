@@ -40,17 +40,17 @@
                 <ul class="category-list">
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=1'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicRemix" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Remix<i class="fa fa-angle-right"></i></a>
                     </li>
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=2'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicPop" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Pop<i class="fa fa-angle-right"></i></a>
                     </li>
 
                     <li class="dropdown side-dropdown">
-                        <a onclick="location.href = 'searchbynhomsp.htm?maNhomSp=3'" class="dropdown-toggle"
+                        <a href="/blogMusic/showMusicUs" class="dropdown-toggle"
                            data-toggle="dropdown" aria-expanded="true">Us<i class="fa fa-angle-right"></i></a>
                     </li>
 
@@ -64,7 +64,6 @@
                 <ul class="menu-list">
                     <li><a href="/blogMusic/">Trang chủ</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/blogMusic/shopping-cart">Giỏ hàng</a></li>
-                    <li><a href="">Thông tin Blog</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/blogMusic/favourite-add">Bài hát ưa thích</a></li>
                 </ul>
             </div>

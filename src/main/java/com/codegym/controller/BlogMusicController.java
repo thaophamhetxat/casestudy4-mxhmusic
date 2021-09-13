@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -36,17 +37,14 @@ public class BlogMusicController {
     ICommentService iCommentService;
 
 
-//
-//    @ExceptionHandler(Exception.class)
-//    public ModelAndView handleError(Exception e) {
-//        ModelAndView modelAndView = new ModelAndView("error");
-//        return modelAndView;
-//    }
 
-//    @ModelAttribute("cart")
-//    public Cart setupCart() {
-//        return new Cart();
-//    }
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleError(Exception e) {
+        ModelAndView modelAndView = new ModelAndView("/error");
+        return modelAndView;
+    }
+
+
 
     @ModelAttribute
     public ArrayList<TheLoai> listTheLoai() {
@@ -99,20 +97,22 @@ public class BlogMusicController {
         modelAndView.addObject("listPerson", iPersonService.findAllPerson());
         modelAndView.addObject("listSinger", iCaSyService.findAll());
         modelAndView.addObject("listMusician", iNhacSyService.findAll());
-        modelAndView.addObject("listAdmin", iPersonService.findAllByNameAdmin());
-        modelAndView.addObject("listUser", iPersonService.findAllByNamePerson());
+        modelAndView.addObject("listAdmin", iPersonService.findAllByNameAdmin().size());
+        modelAndView.addObject("listUser", iPersonService.findAllByNamePerson().size());
+        modelAndView.addObject("listBlog", iBlogMusicService.findAll().size());
         modelAndView.addObject("list", iBlogMusicService.findAll(PageRequest.of(page, 5, Sort.by("views"))));
         return modelAndView;
     }
 
 
     @GetMapping("/blog")
-    public ModelAndView blog(@RequestParam(defaultValue = "0") int page) {
+    public ModelAndView blog(@RequestParam(defaultValue = "0") int page,@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/blog");
 //        modelAndView.addObject("listSortViews",iBlogMusicService.SortMaxViews());
         modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());
         modelAndView.addObject("listPop", iBlogMusicService.findAllByNamePop());
         modelAndView.addObject("listUs", iBlogMusicService.findAllByNameUs());
+        modelAndView.addObject("listComments",iCommentService.findAll());
         modelAndView.addObject("list", iBlogMusicService.findAll(PageRequest.of(page, 12)));
         return modelAndView;
     }
@@ -147,7 +147,7 @@ public class BlogMusicController {
     }
 
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/edit/{idBlog}")
     public ModelAndView showEdit(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/edit", "listTheLoai", iTheLoaiService.findAll());
         modelAndView.addObject("list", iBlogMusicService.findById(idBlog));
@@ -180,6 +180,13 @@ public class BlogMusicController {
         return modelAndView;
     }
 
+    @GetMapping("/search-admin")
+    public ModelAndView findByNameAdmin(@RequestParam String tenBaiHat) {
+        ModelAndView modelAndView = new ModelAndView("/showAdmin");
+        modelAndView.addObject("list", iBlogMusicService.findAllByName(tenBaiHat));
+        return modelAndView;
+    }
+
 
     @GetMapping("/delete/{idBlog}")
     public ModelAndView delete(@PathVariable int idBlog) {
@@ -198,7 +205,7 @@ public class BlogMusicController {
 
     //    blog
     @GetMapping("/playBlog/{idBlog}")
-    public ModelAndView showBlog(@PathVariable int idBlog) {
+    public ModelAndView showBlog(@RequestParam(defaultValue = "0") int page,@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/blog");
         iBlogMusicService.views(idBlog);
 //        modelAndView.addObject("listSortViews",iBlogMusicService.SortMaxViews());
@@ -208,7 +215,7 @@ public class BlogMusicController {
         modelAndView.addObject("listAll", iBlogMusicService.findAll());
         modelAndView.addObject("list", iBlogMusicService.findById(idBlog));
         //show comment
-        modelAndView.addObject("listComment", iCommentService.findAll());
+        modelAndView.addObject("listComments",iCommentService.findAll(PageRequest.of(page, 6)));
         return modelAndView;
     }
 
@@ -308,10 +315,50 @@ public class BlogMusicController {
     }
 
 
+    @PostMapping("/register")
+    public ModelAndView createRegister(@ModelAttribute("listPerson") Person person, @RequestParam MultipartFile uppAvatar) {
+        String nameAvatar = uppAvatar.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(uppAvatar.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar/" + nameAvatar));
+            String urlImg = "/avatar/" + nameAvatar;
+            person.setAvatar(urlImg);
+        } catch (IOException e) {
+            System.err.println("chưa uppload file");
+        }
+        iPersonService.savePerson(person);
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/blogMusic/login");
+        return modelAndView;
+    }
+
+
+    @GetMapping("/forgot")
+    public ModelAndView forgot() {
+        return new ModelAndView("/forgot");
+    }
+
+    @GetMapping("/search-register")
+    public ModelAndView findAllByUserName(@RequestParam String userName) {
+        ModelAndView modelAndView = new ModelAndView("/forgot");
+        modelAndView.addObject("listForgot", iPersonService.findAllByUserName(userName));
+        return modelAndView;
+    }
+
+
+//
+//    @GetMapping("/comments/{idBlog}")
+//    public ModelAndView comment(@PathVariable int idBlog) {
+//        ModelAndView modelAndView = new ModelAndView("/blog");
+//        modelAndView.addObject("listCM", iCommentService.findById(idBlog).get());
+//        return modelAndView;
+//    }
+
+
+
     @PostMapping("/comments")
     public ModelAndView editComment(@ModelAttribute Comment comment) {
         iCommentService.save(comment);
-        return new ModelAndView("redirect:/blogMusic/blog");
+        return new ModelAndView("redirect:/blogMusic/");
     }
 
 
@@ -488,5 +535,12 @@ public class BlogMusicController {
         return modelAndView;
     }
 
+    //next
+    @RequestMapping("/next")
+    public ModelAndView listMusic() {
+        List<BlogMusic> todoList = iBlogMusicService.findAll();
+        ModelAndView modelAndView = new ModelAndView("/blog", "todoList", todoList);
+        return modelAndView;
+    }
 
 }

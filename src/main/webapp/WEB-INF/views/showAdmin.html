@@ -43,12 +43,12 @@
         <div class="col-sm-3 sidenav hidden-xs">
             <h2 style="text-align: center">HOME ADMIN</h2>
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#section1" style="text-align: center">Dashboard</a></li>
-                <li><a href="/blogMusic/create" class="btn btn-success">Create Blog</a></li>
-                <li><a href="/blogMusic/create-person" class="btn btn-success">Create Admin/Person</a></li>
-                <li><a href="/blogMusic/create-casy" class="btn btn-success">Create Singer</a></li>
-                <li><a href="/blogMusic/create-nhacsy" class="btn btn-success">Create Musician</a></li>
-                <li><a th:href="@{/logout}" class="btn btn-success">logout</a></li>
+                <li class="active"><a href="/blogMusic/showAdmin" style="text-align: center">Dashboard</a></li>
+                <li><a href="/blogMusic/create" class="btn btn-success" th:text="#{CreateBlog}"></a></li>
+                <li><a href="/blogMusic/create-person" class="btn btn-success" >Create Admin/Person</a></li>
+                <li><a href="/blogMusic/create-casy" class="btn btn-success" th:text="#{CreateSinger}"></a></li>
+                <li><a href="/blogMusic/create-nhacsy" class="btn btn-success" th:text="#{CreateMusician}"></a></li>
+                <li><a th:href="@{/logout}" class="btn btn-success" th:text="#{Logout}"></a></li>
                 <!-- Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -66,34 +66,34 @@
 
         <div class="col-sm-9">
             <div class="well">
-                <h4>Search</h4>
-                <form action="/blogMusic/findByName" method="get">
-                    <input type="text" class="form-control" placeholder="search" name="findName">
-                    <span><button type="submit" class="btn btn-success">Find</button></span>
+                <h4 th:text="#{Search}"></h4>
+                <form action="/blogMusic/search-admin" method="get">
+                    <input type="text" class="form-control" placeholder="search" name="tenBaiHat">
+                    <span><button type="submit" class="btn btn-success" th:text="#{Find}"></button></span>
                 </form>
             </div>
             <div class="row">
                 <!--                information-->
                 <div class="col-sm-3">
-                    <div class="well">
+                    <div class="well" >
                         <h4>Users</h4>
                         <!--                        đếm vẫn chưa được-->
-                        <p th:each="person,loop: ${listPerson}" th:text="${loop.size}"></p>
+                        <p  th:text="${listUser}"></p>
                     </div>
                 </div>
 
                 <div class="col-sm-3">
-                    <div class="well">
+                    <div class="well" >
                         <h4>Admin</h4>
                         <!--                        đếm vẫn chưa được-->
-                        <p th:each="person,loop: ${listAdmin}" th:text="${loop.count}"></p>
+                        <p  th:text="${listAdmin}"></p>
                     </div>
                 </div>
 
                 <div class="col-sm-3">
                     <div class="well">
                         <h4>Blogs</h4>
-                        <p>10 Million</p>
+                        <p th:text="${listBlog}"></p>
                     </div>
                 </div>
 
@@ -115,15 +115,15 @@
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Name Music</th>
-                                <th>Name Singer</th>
-                                <th>Name Musician</th>
-                                <th>File Image</th>
-                                <th>Genre</th>
-                                <th>Detail</th>
-                                <th>Play</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <th th:text="#{NameMusic}"></th>
+                                <th th:text="#{NameSinger}"></th>
+                                <th th:text="#{NameMusician}"></th>
+                                <th th:text="#{FileImage}"></th>
+                                <th th:text="#{Genre}"></th>
+                                <th th:text="#{Detail}"></th>
+                                <th th:text="#{Play}"></th>
+                                <th th:text="#{Edit}"></th>
+                                <th th:text="#{Delete}"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -203,12 +203,12 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Avatar</th>
-                                <th>UserName</th>
-                                <th>PassWord</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Delete</th>
+                                <th th:text="#{Avatar}"></th>
+                                <th th:text="#{UserName}"></th>
+                                <th th:text="#{PassWord}"></th>
+                                <th th:text="#{Email}"></th>
+                                <th th:text="#{Role}"></th>
+                                <th th:text="#{Delete}"></th>
                             </tr>
                             </thead>
                             <block th:each="person,loop: ${listPerson}">
@@ -240,9 +240,9 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Singer Photo</th>
-                                <th>Singer Name</th>
-                                <th>Action</th>
+                                <th th:text="#{SingerPhoto}"></th>
+                                <th th:text="#{SingerName}"></th>
+                                <th th:text="#{Action}"></th>
                             </tr>
                             </thead>
                             <block th:each="singer,loop: ${listSinger}">
@@ -268,9 +268,9 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Musician Photo</th>
-                                <th>Musician Name</th>
-                                <th>Action</th>
+                                <th th:text="#{MusicianPhoto}"></th>
+                                <th th:text="#{MusicianName}"></th>
+                                <th th:text="#{Action}"></th>
                             </tr>
                             </thead>
                             <block th:each="musician,loop: ${listMusician}">
