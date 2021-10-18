@@ -41,8 +41,8 @@
     </div>
     <div id="header">
         <div class="container">
-            <div class="pull-left" >
-                <form action="/blogMusic/search"  method="get">
+            <div class="pull-left">
+                <form action="/blogMusic/search" method="get">
                     Tìm kiếm: <input class="input search-input" type="text" name="tenBaiHat" placeholder="Nhập từ khóa">
                 </form>
             </div>
@@ -274,13 +274,13 @@
             <div class="col-md-12 col-sm-12" style="text-align: right"></div>
         </div>
         <br>
-<!--        <div style="text-align: center">-->
-<!--            <span><a th:if="${list.hasPrevious()}"-->
-<!--                     th:href="@{/blogMusic/ (page = ${list.number - 1})}"><<<<</a></span>-->
-<!--            <span th:text="${list.number + 1}"></span>/<span th:text="${list.totalPages}"></span>-->
-<!--            <span><a th:if="${list.hasNext()}"-->
-<!--                     th:href="@{/blogMusic/ (page = ${list.number + 1})}">>>>></a></span>-->
-<!--        </div>-->
+        <!--        <div style="text-align: center">-->
+        <!--            <span><a th:if="${list.hasPrevious()}"-->
+        <!--                     th:href="@{/blogMusic/ (page = ${list.number - 1})}"><<<<</a></span>-->
+        <!--            <span th:text="${list.number + 1}"></span>/<span th:text="${list.totalPages}"></span>-->
+        <!--            <span><a th:if="${list.hasNext()}"-->
+        <!--                     th:href="@{/blogMusic/ (page = ${list.number + 1})}">>>>></a></span>-->
+        <!--        </div>-->
         <!-- /Product Single -->
     </div>
 </div>
@@ -442,14 +442,14 @@
             <!-- /footer widget -->
 
             <!-- footer widget -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="col-md-3 col-sm-6 col-xs-6" >
                 <div class="footer">
                     <h3 class="footer-header">My Account</h3>
                     <ul class="list-links">
                         <li><a href="#">My Account</a></li>
                         <li><a href="#">My Wishlist</a></li>
                         <li><a href="#">Compare</a></li>
-                        <li><a href="#">Checkout</a></li>
+                        <li><a href="#" >Edit User</a></li>
                         <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Login</a></li>
                     </ul>
                 </div>

@@ -1,12 +1,14 @@
 package com.codegym.moduls;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class BlogMusic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idBlog;
+    @NotEmpty(message = "not null")
     String tenBaiHat;
     String fileMusic;
     String fileImage;

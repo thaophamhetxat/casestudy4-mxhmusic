@@ -4,12 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class NhacSy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idNhacSy;
+    @NotEmpty(message = "not null")
     String nameNhacSy;
     String musicianPhoto;
 

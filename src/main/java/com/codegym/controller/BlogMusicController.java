@@ -8,10 +8,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,13 +39,11 @@ public class BlogMusicController {
     ICommentService iCommentService;
 
 
-
     @ExceptionHandler(Exception.class)
     public ModelAndView handleError(Exception e) {
         ModelAndView modelAndView = new ModelAndView("/error");
         return modelAndView;
     }
-
 
 
     @ModelAttribute
@@ -74,6 +74,7 @@ public class BlogMusicController {
         modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());
         modelAndView.addObject("listPop", iBlogMusicService.findAllByNamePop());
         modelAndView.addObject("listUs", iBlogMusicService.findAllByNameUs());
+        modelAndView.addObject("listPerson", iPersonService.findAllPerson());
         modelAndView.addObject("list", iBlogMusicService.findAll(PageRequest.of(page, 12)));
         // hiển thị danh mục ca sỹ
         modelAndView.addObject("listCaSy", iCaSyService.findAll(PageRequest.of(page, 4)));
@@ -106,13 +107,13 @@ public class BlogMusicController {
 
 
     @GetMapping("/blog")
-    public ModelAndView blog(@RequestParam(defaultValue = "0") int page,@PathVariable int idBlog) {
+    public ModelAndView blog(@RequestParam(defaultValue = "0") int page, @PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/blog");
 //        modelAndView.addObject("listSortViews",iBlogMusicService.SortMaxViews());
         modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());
         modelAndView.addObject("listPop", iBlogMusicService.findAllByNamePop());
         modelAndView.addObject("listUs", iBlogMusicService.findAllByNameUs());
-        modelAndView.addObject("listComments",iCommentService.findAll());
+        modelAndView.addObject("listComments", iCommentService.findAll());
         modelAndView.addObject("list", iBlogMusicService.findAll(PageRequest.of(page, 12)));
         return modelAndView;
     }
@@ -128,7 +129,11 @@ public class BlogMusicController {
     }
 
     @PostMapping("/create")
-    public ModelAndView create(@ModelAttribute("listTheLoai") BlogMusic blogMusic, @RequestParam MultipartFile uppImg, @RequestParam MultipartFile uppMusic) {
+    public ModelAndView create(@Valid @ModelAttribute("listTheLoai") BlogMusic blogMusic , BindingResult bindingResult, @RequestParam MultipartFile uppImg, @RequestParam MultipartFile uppMusic) {
+        if (bindingResult.hasFieldErrors()) {
+            ModelAndView modelAndView = new ModelAndView("/create");
+            return modelAndView;
+        }
         String nameImg = uppImg.getOriginalFilename();
         String nameMusic = uppMusic.getOriginalFilename();
         try {
@@ -205,7 +210,7 @@ public class BlogMusicController {
 
     //    blog
     @GetMapping("/playBlog/{idBlog}")
-    public ModelAndView showBlog(@RequestParam(defaultValue = "0") int page,@PathVariable int idBlog) {
+    public ModelAndView showBlog(@RequestParam(defaultValue = "0") int page, @PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/blog");
         iBlogMusicService.views(idBlog);
 //        modelAndView.addObject("listSortViews",iBlogMusicService.SortMaxViews());
@@ -215,7 +220,7 @@ public class BlogMusicController {
         modelAndView.addObject("listAll", iBlogMusicService.findAll());
         modelAndView.addObject("list", iBlogMusicService.findById(idBlog));
         //show comment
-        modelAndView.addObject("listComments",iCommentService.findAll(PageRequest.of(page, 6)));
+        modelAndView.addObject("listComments", iCommentService.findAll(PageRequest.of(page, 6)));
         return modelAndView;
     }
 
@@ -316,7 +321,11 @@ public class BlogMusicController {
 
 
     @PostMapping("/register")
-    public ModelAndView createRegister(@ModelAttribute("listPerson") Person person, @RequestParam MultipartFile uppAvatar) {
+    public ModelAndView createRegister(@Valid @ModelAttribute("listPerson") Person person,BindingResult bindingResult, @RequestParam MultipartFile uppAvatar) {
+        if(bindingResult.hasFieldErrors()){
+            ModelAndView modelAndView = new ModelAndView("/register");
+            return modelAndView;
+        }
         String nameAvatar = uppAvatar.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppAvatar.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\avatar/" + nameAvatar));
@@ -354,7 +363,6 @@ public class BlogMusicController {
 //    }
 
 
-
     @PostMapping("/comments")
     public ModelAndView editComment(@ModelAttribute Comment comment) {
         iCommentService.save(comment);
@@ -371,7 +379,11 @@ public class BlogMusicController {
     }
 
     @PostMapping("/create-casy")
-    public ModelAndView createSinger(@RequestParam MultipartFile uppPhotoCasy, @ModelAttribute CaSy caSy) {
+    public ModelAndView createSinger(@Valid @ModelAttribute("listSinger") CaSy caSy,BindingResult bindingResult,@RequestParam MultipartFile uppPhotoCasy) {
+        if(bindingResult.hasFieldErrors()){
+            ModelAndView modelAndView = new ModelAndView("/createCaSy");
+            return modelAndView;
+        }
         String nameImg = uppPhotoCasy.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppPhotoCasy.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
@@ -423,7 +435,11 @@ public class BlogMusicController {
     }
 
     @PostMapping("/create-nhacsy")
-    public ModelAndView createMusician(@RequestParam MultipartFile uppPhotoMusician, @ModelAttribute NhacSy nhacSy) {
+    public ModelAndView createMusician(@Valid @ModelAttribute("listMusician") NhacSy nhacSy,BindingResult bindingResult,@RequestParam MultipartFile uppPhotoMusician) {
+        if(bindingResult.hasFieldErrors()){
+            ModelAndView modelAndView = new ModelAndView("/createNhacSy");
+            return modelAndView;
+        }
         String nameImg = uppPhotoMusician.getOriginalFilename();
         try {
             FileCopyUtils.copy(uppPhotoMusician.getBytes(), new File("D:\\MD4-JPA\\casestudy4-mxhmusic\\src\\main\\webapp\\image/" + nameImg));
@@ -506,7 +522,7 @@ public class BlogMusicController {
 
     //like
     @GetMapping("/likeblog/{idBlog}")
-    public ModelAndView likeBlog(@RequestParam(defaultValue = "0") int page,@PathVariable int idBlog) {
+    public ModelAndView likeBlog(@RequestParam(defaultValue = "0") int page, @PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/index");
         iBlogMusicService.likes(idBlog);
         modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());
@@ -521,7 +537,7 @@ public class BlogMusicController {
     }
 
     @GetMapping("/unlikeblog/{idBlog}")
-    public ModelAndView unlikeBlog(@RequestParam(defaultValue = "0") int page,@PathVariable int idBlog) {
+    public ModelAndView unlikeBlog(@RequestParam(defaultValue = "0") int page, @PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/index");
         iBlogMusicService.dislikes(idBlog);
         modelAndView.addObject("listRemix", iBlogMusicService.findAllByNameRemix());

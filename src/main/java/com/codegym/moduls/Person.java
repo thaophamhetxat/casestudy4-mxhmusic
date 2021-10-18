@@ -1,14 +1,20 @@
 package com.codegym.moduls;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 @Entity
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPerson;
+
+    @NotEmpty(message = "not null")
     String userName;
+    @NotEmpty(message = "not null")
     String passWord;
+
     String email;
     int phone;
     Date date;

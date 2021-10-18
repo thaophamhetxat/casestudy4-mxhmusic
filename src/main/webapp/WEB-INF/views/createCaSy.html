@@ -18,6 +18,10 @@
             <tr>
                 <th >Name Singer</th>
                 <td><input th:field="*{nameCaSy}"></td>
+                <td>
+                    <span style="color: red" th:if="${#fields.hasErrors('nameCaSy')}"
+                          th:errors="*{nameCaSy}"></span>
+                </td>
             </tr>
             <tr>
                 <td>Singer Photo:</td>
